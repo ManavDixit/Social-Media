@@ -1,0 +1,12 @@
+.profile-postscontainer{
+    height: 100%;
+    overflow-y: auto;
+    margin:3rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-postscontainer h2{
+    display: block;
+    width: 90%;
+}

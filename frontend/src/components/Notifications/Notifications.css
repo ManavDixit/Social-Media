@@ -1,0 +1,30 @@
+#notificationBox{
+    width: 60%;
+    background-color: rgba(220,220,220,.1);
+    box-shadow: 2px 2px 6px black;
+    margin:2rem auto;
+    border-radius: .5rem;
+    max-height: 50%;
+    overflow-y: auto;
+}
+#notificationBox h2{
+    height: 3rem;
+    border-bottom: 2px solid black;
+    padding: .5rem;
+}
+#notificationBox p{
+    padding: .5rem;
+    font-size: 1rem;
+    border-bottom: 2px solid black;
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 950px) {
+
+  
+#Notifications{
+    display: none !important;
+}
+    
+}

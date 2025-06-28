@@ -1,0 +1,89 @@
+#Sidebar{
+    display: flex;
+    height: 92dvh;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(220,220,220,.1);
+    transition: all .2s;
+    overflow: hidden;
+    position: relative;
+   
+}
+#Sidebar ul{
+    margin-top:6rem;
+    width: 100%;
+    height: calc(80% - 6rem);
+}
+#Sidebar ul li{
+    pointer-events: none;
+    cursor: pointer;
+    margin:3rem auto;
+    list-style: none;
+    width: 80%;
+    line-height: 3rem;
+}
+#Sidebar ul li a{
+    pointer-events: auto;
+    text-decoration: none;
+    text-align: center;
+    color:var(--primary-color)
+}
+#Sidebar ul li svg{
+    color:var(--primary-color);
+    margin-right: 2rem ;
+}
+#Sidebar ul li:hover{
+    background-color: #EDF2FC;
+    font-weight: bolder;
+}
+#Sidebar .others{
+    width: 100%;
+    display: none !important;
+    align-items: center;
+  position: absolute;
+  bottom: 2rem;
+    padding: 1.2rem;
+    display: none;
+}
+#Sidebar .others button{
+    font-size: 1.1rem;
+    width: 10em;
+    padding: .5rem;
+    background:#001C40 ;
+    color: white;
+    border-radius: .5rem;
+    margin: 1rem;
+    cursor: pointer;
+}
+#Sidebar .others img{
+    width: 2.2rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    padding: .2rem;
+    margin-right: .5rem;
+}
+#user img{
+    width: 2rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    padding: .2rem;
+    margin-right: .5rem;
+}
+@media only screen and (max-width: 950px) {
+
+    #Sidebar{
+        width: 40%;
+    }
+
+    
+}
+@media only screen and (max-width:650px){
+    #Sidebar{
+        width:0% !important;
+        overflow:hidden;
+    }
+    #Sidebar .others{
+        display: flex !important;
+    
+    }
+}

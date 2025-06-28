@@ -1,0 +1,20 @@
+#alert{
+    --alert-success:#DAEDD4;
+    --alert-error:#a15e65;
+    width: 100%;
+    height: 8vh;
+    background-color: var(--alert-success);
+    display: flex;
+    display: none;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1.1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+#alert svg{
+    margin-left: auto;
+    cursor: pointer;
+}

@@ -1,0 +1,69 @@
+.post{
+    width:90%;
+    margin:2rem;
+    border: 1px solid black;
+    border-radius: .2rem;
+}
+.post .title{
+    width: 90%;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    padding: .5rem 0;
+    text-transform: capitalize;
+}
+.post .userInfo{
+    padding: .7rem 1rem;
+    border-bottom: 1px solid black;
+    font-weight: bolder;
+}
+.post .userInfo .userPicName{
+    display: inline-flex;
+    margin-right:.5rem;
+    padding: 1rem ;
+    background: var(--primary-color);
+    color:white;
+    width: 2.5rem;
+    height: 2.5rem;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+
+}
+.post .userInfo a{
+    cursor: pointer;
+    display: inline;
+    text-decoration: none;
+    color: black;
+}
+.post .userInfo a:hover{
+    text-decoration: underline;
+}
+.post .img{
+    width: 90%;
+    margin: 0 auto;
+}
+.post video{
+    width: 100%;
+    background: black;
+}
+.post .img img{
+    width: 100%;
+    border-radius: .2rem;
+}
+.post .buttons{
+    height: 3.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid black;
+}
+.post .buttons svg{
+    margin: 0 .6rem;
+    cursor: pointer;
+}
+.post .description{
+    padding: .5rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

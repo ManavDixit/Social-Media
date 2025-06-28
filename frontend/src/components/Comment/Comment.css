@@ -1,0 +1,47 @@
+.comment .userInfo{
+    padding: .2rem 1rem;
+    border-bottom: 1px solid black;
+    font-weight: bolder;
+}
+.comment .userInfo .userPicName{
+    display: inline-flex;
+    margin-right:.5rem;
+    padding: 1rem ;
+    background: var(--primary-color);
+    color:white;
+    width: 1.5rem;
+    height: 1.5rem;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+
+}
+.comment .userInfo p{
+    cursor: pointer;
+    display: inline;
+}
+.comment .userInfo p:hover{
+    text-decoration: underline;
+}
+.comment{
+        width:100%;
+        margin:1rem auto;
+        border: 1px solid black;
+        border-radius: .2rem;
+        
+}
+.comment .message{
+    padding: 0.2rem 0.6rem;
+    overflow: hidden;
+}
+.comment .buttons{
+    height: 3.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    /* border-top: 1px solid black; */
+}
+.comment .buttons svg{
+    margin: 0 .6rem;
+    cursor: pointer;
+}

@@ -1,0 +1,26 @@
+#postinfo{
+    display: flex;
+}
+#postinfo .spinner{
+    width: 4rem;
+    margin: 2rem auto;
+}
+#postinfo #postbox{
+  
+    display: block;
+    height: 92dvh;
+    overflow-y: scroll;
+    width: 100%;
+
+}
+#postinfo #postbox .post{
+    width: 90%;
+    margin:5rem auto;
+    height: fit-content;
+
+}
+#postinfo #postbox .post .description{
+    text-overflow: initial;
+    white-space: unset;
+}
+

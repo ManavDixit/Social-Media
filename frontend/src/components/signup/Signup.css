@@ -1,0 +1,143 @@
+#signup{
+    display: flex;
+    width: 100%;
+    height: 92svh;
+    align-items: center;
+    justify-content: center;
+}
+#signup form{
+    width: 30%;
+    box-shadow: 2px 2px 10px grey;
+    padding: 1rem;
+    text-align: center;
+    background: rgba(220,220,220,.1);
+}
+#signup form h1{
+    margin: 1rem;
+}
+#signup form input{
+    width: 80%;
+    line-height: 1.5rem;
+    padding: .4rem;
+    font-size: 1.15rem;
+    margin: .1rem;
+    background: transparent;
+    outline: none;
+    /* border-radius: .4rem; */
+    border:none;
+    border-bottom: 2px solid grey;
+}
+
+#signuppasswordInputContainer{
+    margin: 0.5rem auto;
+    width: 80%;
+    position: relative;
+}
+#signuppasswordInputContainer input{
+    width: 100% !important;
+    margin: 0 !important;
+}
+#signuppasswordInputContainer svg{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    margin: auto 0;
+    right: .8rem;
+    cursor: pointer;
+}
+
+#signup form input:focus{
+    font-size: 1.2rem;
+    border-bottom:2px solid black;
+}
+.validate{
+    color:red;
+    font-size: .8rem;
+    text-align: left;
+    margin: 0 auto;
+    width: 80%;
+    visibility:hidden;
+}
+#signup form button{
+    width: 80%;
+    display: block;
+    margin: 1rem auto;
+    font-size: 1.2rem;
+    padding: .5rem;
+    background-color: var(--primary-color);
+    border-radius: .4rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+#signup form a{
+    display: block;
+    width:80%;
+    text-align: right;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 1100px) {
+
+    #signup form{
+        width: 50%;
+    }
+
+}
+@media only screen and (max-width: 650px) {
+
+    #signup form{
+        /* width: 100%; */
+        width: 90%;
+
+        /* box-shadow: none; */
+        background-color: transparent;
+    }
+   
+    #signup form input{
+        width: 90%;
+    }
+
+    #signuppasswordInputContainer{
+        margin: 0.5rem auto;
+        width: 80%;
+        position: relative;
+    }
+    #signuppasswordInputContainer input{
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    #signuppasswordInputContainer svg{
+        position: absolute;
+        top:0;
+        bottom: 0;
+        margin: auto 0;
+        right: .8rem;
+        cursor: pointer;
+    }
+    
+    #signup form button{
+        width: 90%;
+    }
+    #signup form a{
+        width: 90%;
+    }
+    #signuppasswordInputContainer{
+        width: 90%;
+    }
+    #signuppasswordInputContainer svg{
+        font-size: 1.5rem;
+    }
+     /* #signup form input{
+        font-size: 1.5rem;
+    }
+    #signup form p{
+        font-size: .8rem;
+    }
+    #signup form h1{
+        font-size: 2.5rem;
+        margin: 1.5rem;
+    }
+    #signup form button{
+        padding: .8rem;
+    } */
+}

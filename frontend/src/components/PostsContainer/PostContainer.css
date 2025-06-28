@@ -1,0 +1,16 @@
+#PostContainer{
+    height: 90dvh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+#PostContainer h1{
+    margin: 2rem;
+}
+#PostContainer .spinner{
+    width: 3rem;
+}
+
+

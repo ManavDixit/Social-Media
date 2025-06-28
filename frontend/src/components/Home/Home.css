@@ -1,0 +1,15 @@
+#home{
+    display: flex;
+    /* width: 45%; */
+}
+#Sidebar{
+    width: 25%;
+
+}
+#PostContainer{
+
+overflow: hidden;
+}
+#Notifications{
+  width: 30%;
+}

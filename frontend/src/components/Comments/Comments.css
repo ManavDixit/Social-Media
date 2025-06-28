@@ -1,0 +1,46 @@
+.comments{
+    /* border:2px solid black; */
+    width: 90%;
+    margin: auto;
+    max-height: 92dvh;
+}
+.comments .userInfo a{
+    cursor: pointer;
+    display: inline;
+    text-decoration: none;
+    color: black;
+}
+.comments .userInfo a:hover{
+    text-decoration: underline;
+}
+.comments .spinner{
+    width: 3rem;
+    display: block;
+    margin: auto;
+}
+.comments .addCommentBox{
+    border-bottom: 2px solid grey;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+}
+.comments .addCommentBox input{
+padding: .5rem;
+width: 80%;
+background: transparent;
+    outline: none;
+    border:none;
+    border-bottom: 2px solid grey;
+}
+.comments .addCommentBox button{
+    margin: .5rem;
+    width: 23%;
+    font-size: 1.2rem;
+    padding: .5rem;
+    background-color: var(--primary-color);
+    border-radius: .4rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
