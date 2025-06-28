@@ -30,7 +30,7 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 |----------|---------|----------|--------|
 | React    | Node.js (Express) | MongoDB (Mongoose) | media stored locally on server |
 | Redux | JWT for auth | | Multer + Streams for video |
-| CSS  | Nodemailer for email | | Socket.io (optional for notifications) |
+| CSS  | Nodemailer for email | |  |
 
 ---
 
