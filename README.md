@@ -42,7 +42,7 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 
 ---
 ## 🎬 Video Demo
-![App Demo](screenshots/demo.gif)
+https://youtu.be/RAh3QioGje4
 
 ## ⚙️ Installation & Setup
 
