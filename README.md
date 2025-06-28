@@ -20,7 +20,6 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 ### 👤 User & Social
 - User profile page with bio and posts
 - Follow/Unfollow users
-- Personalized feed of followed users
 - Public post exploration
 
 ---
@@ -29,9 +28,9 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 
 | Frontend | Backend | Database | Others |
 |----------|---------|----------|--------|
-| React    | Node.js (Express) | MongoDB (Mongoose) | Cloudinary/S3 for media |
-| Context API or Redux | JWT for auth | | Multer + Streams for video |
-| Tailwind CSS / CSS Modules | Nodemailer for email | | Socket.io (optional for notifications) |
+| React    | Node.js (Express) | MongoDB (Mongoose) | media stored locally on server |
+| Redux | JWT for auth | | Multer + Streams for video |
+| CSS  | Nodemailer for email | | Socket.io (optional for notifications) |
 
 ---
 
