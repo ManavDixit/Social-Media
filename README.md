@@ -36,7 +36,6 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 
 ## 📸 Screenshots
 
-> _Add images/gifs here once deployed_  
 > ![Home Feed](screenshots/home.png)  
 > ![Post View](screenshots/post.png)  
 > ![Profile Page](screenshots/profile.png)
