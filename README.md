@@ -41,6 +41,8 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 > ![Profile Page](screenshots/profile.png)
 
 ---
+## 🎬 Video Demo
+![App Demo](screenshots/demo.gif)
 
 ## ⚙️ Installation & Setup
 
