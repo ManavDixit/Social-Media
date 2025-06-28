@@ -46,7 +46,7 @@ https://youtu.be/RAh3QioGje4
 
 ## ⚙️ Installation & Setup
 
-1. **Clone the repositories** (if frontend & backend are in separate folders)
+1. **Clone the repositories** 
 ```bash
 git clone https://github.com/your-username/mern-social-media-app.git
 cd mern-social-media-app
