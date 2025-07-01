@@ -42,8 +42,10 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 
 ---
 ## 🎬 Video Demo
+1)Dekstop Version
 https://youtu.be/RAh3QioGje4
-
+2)Phone Version
+https://youtube.com/shorts/_UyYLJPpfQo
 ## ⚙️ Installation & Setup
 
 1. **Clone the repositories** 
