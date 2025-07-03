@@ -22,6 +22,8 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 - Follow/Unfollow users
 - Public post exploration
 
+### 🔔 Notifications
+- Planned for future: real-time notifications for likes, comments, follows.Although notification UI placeholder exist in Desktop version.
 ---
 
 ## 🛠️ Tech Stack
