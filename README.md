@@ -48,7 +48,26 @@ https://youtu.be/RAh3QioGje4
 https://youtube.com/shorts/_UyYLJPpfQo
 ## ⚙️ Installation & Setup
 
-1. **Clone the repositories** 
-```bash
-git clone https://github.com/your-username/mern-social-media-app.git
-cd mern-social-media-app
+# 1. Clone the repo
+git clone https://github.com/ManacDixit/Socialmedia.git
+cd Socialmedia
+
+# 2. Install backend dependencies
+cd backend
+npm install
+
+# 3. Install frontend dependencies
+cd ../frontend
+npm install
+
+# 4. Create .env files for backend and frontend
+
+# 5. Run backend
+cd backend
+npm run dev  # or npm start
+
+# 6. Run frontend
+cd ../frontend
+npm start
+
+# Set hostname and port from env
