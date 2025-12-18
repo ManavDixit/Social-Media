@@ -22,6 +22,14 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 - Follow/Unfollow users
 - Public post exploration
 
+###💬 Messaging
+
+- Real-time one-to-one messaging using WebSockets
+- Messages stored persistently in the database
+- Cursor-based (time-based) pagination to load older messages without duplication issues
+- Smart auto-scroll behavior: stays at bottom during active chats, preserves position while loading history
+- Supports continuous conversation without breaking UX during new incoming messages
+
 ### 🔔 Notifications
 - Planned for future: real-time notifications for likes, comments, follows.Although notification UI placeholder exist in Desktop version.
 ---
@@ -30,9 +38,10 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 
 | Frontend | Backend | Database | Others |
 |----------|---------|----------|--------|
-| React    | Node.js (Express) | MongoDB (Mongoose) | media stored locally on server |
-| Redux | JWT for auth | | Multer + Streams for video |
-| CSS  | Nodemailer for email | |  |
+| React | Node.js (Express) | MongoDB (Mongoose) | Media stored locally on server |
+| Redux | JWT for auth | | WebSockets (real-time messaging) |
+| CSS | Nodemailer for email | | Multer + Streams (video upload & playback) |
+| | | | Cursor-based pagination (time-based) |
 
 ---
 
