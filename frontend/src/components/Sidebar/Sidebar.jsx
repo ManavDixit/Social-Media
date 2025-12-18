@@ -12,7 +12,7 @@ const Sidebar = () => {
     <div id='Sidebar' style={{display:!token?'none':'flex'}}>
       <ul>
         <li><FontAwesomeIcon icon={faHouse}/><Link to="/">Home</Link></li>
-        <li><FontAwesomeIcon icon={faMessage}/><Link to="">Messages</Link></li>
+        <li><FontAwesomeIcon icon={faMessage}/><Link to="/messages">Messages</Link></li>
         <li><FontAwesomeIcon icon={faBell}/><Link to="/">Notifications</Link></li>
         <li><FontAwesomeIcon icon={faUser}/><Link to={`/profile?email=${profile.email}`}>Profile</Link></li>
       </ul>

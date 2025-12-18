@@ -2,12 +2,12 @@ import Users from "../models/Auth.js";
 import Posts from "../models/Post.js";
 export const getProfileData=async (req,res)=>{
     try {
-        const email=req.email;
+        const email=req.email;//set by autheneticte middleware
         //checking if user exists
         const {user_email}=req.query;
-        console.log(user_email)
+        
         const user=user_email?await Users.findOne({email:user_email}):await Users.findOne({email});
-        console.log(user)
+       
         if(!user) return res.status(404).send({success:false,error:'user not found'});
         //getting user post
         let posts=await Posts.find({user:user_email||email});
@@ -16,7 +16,7 @@ export const getProfileData=async (req,res)=>{
             ...post.toObject(),likes:post?.likes?.length,hasLiked:post?.likes?.includes(email),user:(await Users.findOne({email:post.user}))?.name,email:post.user
           })));}
 
-        console.log(posts);
+      
         const isMyProfile=user_email?user_email===email:true;
         if(user_email){
           const authenticatedUser=await Users.findOne({email});

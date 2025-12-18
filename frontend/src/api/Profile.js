@@ -18,7 +18,7 @@ try {
   if(data.success){
     return data.user;
   }else{
-    dispatch(setAlert({ message: `error : ${data.error}`, type: "error" }));
+    dispatch(setAlert({ message: `error : ${data.error.message}`, type: "error" }));
     navigate('/')
    
   }
@@ -47,7 +47,7 @@ try {
   if(data.success){
     return data;
   }else{
-    dispatch(setAlert({ message: `error : ${data.error}`, type: "error" }));
+    dispatch(setAlert({ message: `error : ${data.error.message}`, type: "error" }));
     navigate('/')
    
   }

@@ -2,11 +2,9 @@ import Posts from "../models/Post.js";
 import Users from "../models/Auth.js";
 //function to fetch all post
 export const getAllPost = async (req,res) => {
-  console.log('get posts')
   try {
     const {email}=req;//set by authenticate middleware
     let posts = req.paginatedData;
-    console.log("posts sent");
     //doing ...post.toObject() because spread(...) operator on posts contain some mongodb in ternal non-js proprty
     if (posts){posts=await Promise.all(posts.map(async post =>({
       ...post.toObject(),likes:post?.likes?.length,hasLiked:post?.likes?.includes(email),user:(await Users.findOne({email:post.user}))?.name,email:post.user
@@ -29,9 +27,8 @@ export const getAllPost = async (req,res) => {
 //function to create new note
 export const CreateNewPost = async (req, res) => {
   try {
+    //file deatils saved by muletr in req.files
     const data = req.body;
-    console.log(data);
-    console.log(req?.file);
     const email=req.email;
     //getting user
     const user=await Users.findOne({email});
@@ -66,7 +63,7 @@ export const likePost=async (req,res)=>{
 
     //checking if user already liked post
     if(post.likes.includes(email)){
-      let likes=post.likes.filter((user)=>{console.log(user!==email);return user!==email});
+      let likes=post.likes.filter((user)=>{return user!==email});
       const newpost=await Posts.findByIdAndUpdate(postid,{likes},{new:true});//new:true to returtn updated post
       res.status(200).send({success:true})
     }else{
@@ -83,7 +80,7 @@ export const likePost=async (req,res)=>{
 //function to send information about specific post
 export const getPostInfo=async (req,res)=>{
   const id=req.query.postid;
-  console.log(id);
+  
   const {email}=req;//set by authenticate middleware
   try {
   //check if post exists
@@ -93,7 +90,7 @@ export const getPostInfo=async (req,res)=>{
   post={...post.toObject(),likes:post.likes.length,hasLiked:post.likes.includes(email),user:(await Users.findOne({email:post.user})).name,email:post.user}
   res.status(200).send({success:true,post})
 } catch (error) {
-  console.log(error,'kkkzkk zkzkzkkz');
+  console.log(error);
   res.status(500).send({success:false,error});
 }
 }

@@ -79,7 +79,10 @@ const Post = forwardRef(({ title, description, postimg, postvideo ,hasLiked,post
           <video
             controls
           >
-            <source src={`${url}/uploads/video?src=${postvideo}&token=${token}`}></source>
+            <source
+  src={`${url}/uploads/video?src=${encodeURIComponent(postvideo.replace(/\\/g, "/"))}&token=${token}`}
+/>
+
           </video>
         </div>
       ) : null}

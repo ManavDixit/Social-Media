@@ -14,15 +14,21 @@ import Verify from "./components/verify/Verify";
 import CreatePost from "./components/CreatePost/CreatePost";
 import PostInfo from "./components/PostInfo/PostInfo";
 import Profile from "./components/Profile/Profile";
-
+import Messages from "./components/Messages/Messages"
 import Sidebar from "./components/Sidebar/Sidebar";
 import Notifications from "./components/Notifications/Notifications";
 import MainElement from "./MainElement";
 import { getProfile} from "./api/Profile";
 import { setProfile } from "./Reducers/Profile";
+import { useLocation } from "react-router-dom";
+
+import { socket } from './socket';
+import { ChatBox } from "./components/Messages/ChatBox";
+import { EmptyScreen } from "./components/Messages/EmptyScreen";
 function App() {
   const navigate = useNavigate();
   const dispatch=useDispatch();
+  const location=useLocation();
   const { alert } = useSelector((state) => state);
   const token = localStorage.getItem("token");
   const setUserData=async ()=>{
@@ -30,14 +36,37 @@ function App() {
         if(userData.isMyProfile) dispatch(setProfile(userData));
   }
   useEffect(() => {
+    //socket.io handlers
+    const onConnect = () => {
+
+      console.log("connected to websocket");
+    }
+const onDisconnect = () => console.log("disconnected from websocket");
+const onConnectError = (err) => console.error("Connection failed:", err.message);
     (async ()=>{
       
       console.log(token);
       if(token){
         setUserData();
       }
-    })()
-  }, []);
+    })();
+//socket.io event listners
+  //If token present, update auth + connect
+  if (token) {
+    socket.auth = { token };
+    socket.connect();
+  }
+       socket.on("connect", onConnect);
+  socket.on("disconnect", onDisconnect);
+  socket.on("connect_error", onConnectError);
+    // Cleanup (avoids multiple event listners)
+  return () => {
+    socket.off("connect", onConnect);
+    socket.off("disconnect", onDisconnect);
+    socket.off("connect_error", onConnectError);
+    socket.disconnect();
+  };
+  }, [token]);
   
   return (
     <div className="App">
@@ -61,8 +90,17 @@ function App() {
           <Route path="/login" element={<Signin setUserData={setUserData}/>} />
           <Route path="/auth/google" element={<GoogleAuth setUserData={setUserData} />} />
           <Route path="/verify" element={<Verify setUserData={setUserData} />} />
+            <Route path="/messages" element={<Messages/>}>
+            <Route index element={<EmptyScreen />} />     // when no chat selected
+      <Route path=":email" element={<ChatBox />} />
+
+            </Route>
+          
         </Routes>
-        <Notifications />
+
+         {/* only show Notifications if not on /messages */}
+      {!location.pathname.toLowerCase().startsWith("/messages") && <Notifications />}
+
       </div>
     </div>
   );

@@ -33,7 +33,6 @@ export const getComments=async (req,res)=>{
     try {
         const { post_id } = req.headers;
         const {email}=req;
-        console.log('post id is ',post_id)
     // checking if post exists
     const post = await Posts.findById(post_id);
     if (!post)
@@ -42,9 +41,8 @@ export const getComments=async (req,res)=>{
     
       // getting paginated data
     let comments=req.paginatedData;
-    let isPrevAvialble=req.isPrevAvialble
-    let isNextAvailable=req.isNextAvailable
-    console.log(comments);
+    let isPrevAvialble=req.isPrevAvialble;
+    let isNextAvailable=req.isNextAvailable;
 
     
       if (comments){comments=await Promise.all(comments.map(async comment =>({
@@ -73,7 +71,7 @@ export const likeComment=async (req,res)=>{
 
     //checking if user already liked post
     if(comment.likes.includes(email)){
-      let likes=comment.likes.filter((user)=>{console.log(user!==email);return user!==email});
+      let likes=comment.likes.filter((user)=>{return user!==email});
       const newcomment=await Comments.findByIdAndUpdate(commentid,{likes},{new:true});//new:true to returtn updated coment
       res.status(200).send({success:true})
     }else{

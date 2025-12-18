@@ -8,16 +8,19 @@ const Topbar = () => {
   const [ham_icon,setham_icon]=useState(faBars);
   const Sidebar=document.getElementById('Sidebar');
   const mainElement=document.querySelector('.mainelement');
+  const messages=document.querySelector("#messages");
   const opensidebar=()=>{
     if(Sidebar)Sidebar.style.setProperty('width','100%','important')
     console.log(mainElement)
-    if (mainElement) mainElement.style.setProperty('width','0%','important')
+    if (mainElement) mainElement.style.setProperty('width','0%','important');
+    if (messages) messages.style.setProperty('width','0%','important')
 
   }
   const closesidebar=()=>{
 
     if(Sidebar)Sidebar.style.setProperty('width','0%','important')
     if (mainElement) mainElement.style.setProperty('width','100%','important')
+      if (messages) messages.style.setProperty('width','100%','important')
   }
   const toggle_sidebar=(e)=>{
     if(ham_icon==faBars) setham_icon(faXmark);

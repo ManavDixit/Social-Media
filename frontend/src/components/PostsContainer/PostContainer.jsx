@@ -27,6 +27,7 @@ const PostContainer = () => {
     }
   }, [page]);
   const hasPosts = posts.posts.length;
+  //pagination
   const observer=useRef(null);
   const lastelement=useCallback((element)=>{
    if(observer.current) observer.current.disconnect();
@@ -35,8 +36,8 @@ const PostContainer = () => {
       setPage(page=>page+1);
     }
    },{})
-   if(element) observer.current.observe(element)
-  },[posts.posts,isLoading,page])
+   if(element) observer.current.observe(element);
+  },[posts.posts,isLoading,page]);
 
 //function to handle Click On Post
 const handleClickOnPost=(postid)=>{

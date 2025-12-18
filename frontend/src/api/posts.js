@@ -25,7 +25,7 @@ export const getPosts = createAsyncThunk(
         } else {
           console.log(data.error);
           dispatch(
-            setAlert({ message: `Unable to fetch posts error ${error}`, type: "error" })
+            setAlert({ message: `Unable to fetch posts error ${data.error}`, type: "error" })
           );
           throw new Error(JSON.stringify(data.error));
         }
@@ -66,7 +66,7 @@ export const createPost = async ({ title, description, attachment,dispatch }) =>
           dispatch(setAlert({ message: `Post not uploaded : ${json_res.error}`, type: "error" }))
         }
     } catch (error) {
-      dispatch(setAlert({ message: error, type: "error" }))
+      dispatch(setAlert({ message: error.error.message, type: "error" }))
     }
   }
 };
@@ -107,7 +107,7 @@ try {
   if(data.success){
     return data.post;
   }else{
-    dispatch(setAlert({ message: `error : ${data.error}`, type: "error" }));
+    dispatch(setAlert({ message: `error : ${data.error.message}`, type: "error" }));
     navigate('/')
     throw new Error(JSON.stringify(data.error));
   }

@@ -6,11 +6,14 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import {store} from './store';
+import { StrictMode } from 'react';
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <BrowserRouter>
       
+
       <App />
+   
       </BrowserRouter>
     </Provider>
   

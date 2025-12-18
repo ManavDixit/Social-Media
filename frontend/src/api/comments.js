@@ -22,11 +22,11 @@ try {
         return {comments:data.comments,isNextAvailable:data.isNextAvailable,isPrevAvialble:data.isPrevAvialble}
       }else{
         console.log(data.error)
-        dispatch(setAlert({ message: `error: ${data.error}`, type: "error" }))
+        dispatch(setAlert({ message: `error: ${data.error.message}`, type: "error" }))
       }
 } catch (error) {
     console.log(error);
-    dispatch(setAlert({ message: error, type: "error" }))
+    dispatch(setAlert({ message: error.error.message, type: "error" }))
 }
 }
 }
@@ -53,11 +53,11 @@ try {
         
       
         console.log(data.error)
-        dispatch(setAlert({ message: `Cant add comment : ${data.error}`, type: "error" }))
+        dispatch(setAlert({ message: `Cant add comment : ${data.error.message}`, type: "error" }))
       }
 } catch (error) {
     console.log(error);
-    dispatch(setAlert({ message: error, type: "error" }))
+    dispatch(setAlert({ message: error.error.message, type: "error" }))
 }
 }
 }

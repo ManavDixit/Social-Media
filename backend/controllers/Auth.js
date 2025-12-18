@@ -13,7 +13,6 @@ export const signUp = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
   //checking if user already exist
   let user = await Users.findOne({ email });
-  console.log(user);
   if (user)
     return res
       .status(400)
@@ -50,13 +49,10 @@ export const signUp = async (req, res) => {
 export const verify = async (req, res) => {
   const { encryptedData } = req.body;
   try {
-    console.log(JSON.stringify(encryptedData))
     const userInfo = decrypt(encryptedData);
-    console.log(userInfo);
     const newUser = new Users(JSON.parse(userInfo));
     //checking if user already exist
   let user = await Users.findOne({ email:newUser.email });
-  console.log(user);
   if (user){
 
     return res
@@ -64,10 +60,8 @@ export const verify = async (req, res) => {
       .send({ success: false, error: "user already verified please login" });
   }
     const savedUser = await newUser.save();
-    console.log(process.env.JWT_SECRET_KEY);
     //creating and sending jwt token
     const token = jwt.sign(savedUser.email, process.env.JWT_SECRET_KEY);
-    console.log(token);
     res.status(200).json({ success: true, token });
   } catch (error) {
     console.log(error);
@@ -84,12 +78,9 @@ export const signIn = async (req, res) => {
       return res.status(400).send({ success: false, error: "user not found" });
     }
     // cheking if password is correct
-    console.log(password);
-    console.log(user.password);
     if (await bcrypt.compare(password, user.password)) {
       //generating and sending jwt token
       const token = jwt.sign(email, process.env.JWT_SECRET_KEY);
-      console.log(token);
       res.status(200).send({ success: true, token });
     } else {
       return res
@@ -120,12 +111,12 @@ export const googleAuth = async (req, res) => {
         },
       }
     );
-    console.log(user.data);
+
 
     //checking if user already exist
     const { name, email, picture } = user.data;
     let existing_user = await Users.findOne({ email });
-    console.log(existing_user);
+    
     if (!existing_user) {
       //saving user to db
       const newUser = new Users({ name, email, picture });
@@ -166,7 +157,6 @@ const getGoggleTokens = async ({
         "Content-Type": "application/x-www-form-urlencoded",
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

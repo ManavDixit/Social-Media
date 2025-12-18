@@ -4,10 +4,10 @@ export const authenticate=async (req,res,next)=>{
     const token=req.headers.token||req.query.token;
 
     try{
-        console.log('token',token)
+       
         if(!token) return res.status(400).send({success:false,error:"authentication error"});
-        const email=jwt.verify(token,process.env.JWT_SECRET_KEY);
-        console.log(email);
+        const email = jwt.verify(token, process.env.JWT_SECRET_KEY, { algorithms: ['HS256'] });
+        
         if(!email) return res.status(400).send({success:false,error:"authentication error"});
 
         let user = await Users.findOne({ email });

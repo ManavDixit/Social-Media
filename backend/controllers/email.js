@@ -13,5 +13,4 @@ const info=await transpoter.sendMail({
     subject,
     text
 });
-console.log('message send',info)
 }

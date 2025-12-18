@@ -33,7 +33,7 @@ export const signUp = async (
   } catch (error) {
     console.log(error);
     dispatch(setAlert({
-        message: `can't signup error: ${error}`,
+        message: `can't signup Error:${error.error.message}`,
         type:'error'
       }))
   }
@@ -112,7 +112,7 @@ export const verifyUser=async (encryptedData,navigate,dispatch,signal,setUserDat
   } catch (error) {
     console.log(error);
     dispatch(setAlert({
-        message: `can't verify error: ${error}`,
+        message: `can't verify error:${error.error.message}`,
         type:'error'
       }))
   }

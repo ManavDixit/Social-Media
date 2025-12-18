@@ -11,7 +11,7 @@ const LandingPage = () => {
     <div id='landingPage'>
         <div className='container'>
         <h1>Login to continue</h1>
-        <p>Please login or create an account usig the buttons given below</p>
+        <p>Please login or create an account using the buttons given below</p>
         <div className="buttons">
             <button onClick={()=>{navigate('/login')}}>Login</button>
             <button onClick={()=>{navigate('/register')}}>Signup</button>

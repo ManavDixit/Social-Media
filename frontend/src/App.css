@@ -19,7 +19,7 @@ body{
   display: flex;
 }
 .mainelement{
-  width: 45%;
+  width: 48%;
 }
 
 @media only screen and (max-width: 950px) {
@@ -30,7 +30,9 @@ body{
   .mainelement{
       width: 60% !important;
   }
-
+#messages{
+     width: 60% !important;
+  }
   
 }
 @media only screen and (max-width:800px){
@@ -40,7 +42,7 @@ body{
 }
   
 }
-@media only screen and (max-width:650px){
+@media only screen and (max-width:750px){
  
   html{
     font-size: 70% !important;
@@ -48,7 +50,9 @@ body{
   .mainelement{
       width: 100% !important;
   }
-  
+  #messages{
+    width: 100% !important;
+  }
 }
 @media only screen and (max-width:400px){
  
@@ -69,5 +73,6 @@ body{
   html{
     font-size: 45% !important;
 }
+
   
 }

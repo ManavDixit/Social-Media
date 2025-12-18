@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import crypto from 'crypto';
 const algorithm = "aes-256-cbc"; 
-// const initVector ='5329866128019815';
-const initVector=crypto.randomBytes(16);
+const initVector ='5329866128019815';
+// const initVector=crypto.randomBytes(16);
 const secretKey=process.env.SECRERT_KEY;
 export const encrypt=(data)=>{
     try{
