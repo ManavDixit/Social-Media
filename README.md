@@ -22,7 +22,7 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 - Follow/Unfollow users
 - Public post exploration
 
-###💬 Messaging
+### 💬 Messaging
 
 - Real-time one-to-one messaging using WebSockets
 - Messages stored persistently in the database
