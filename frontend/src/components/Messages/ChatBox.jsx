@@ -53,6 +53,8 @@ const containerRef=useRef();
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
+    //clearing previous messages
+    dispatch(clearMessages());
     setIsLoading(true);
     const prevHeight=containerRef.current.scrollHeight;
     dispatch(getMessages({ dispatch, signal, to: email ,lastMessageCreatedAt})).then(() => {
