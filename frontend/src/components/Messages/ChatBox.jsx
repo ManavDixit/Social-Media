@@ -8,31 +8,37 @@ import { getProfile } from "../../api/Profile";
 import { getMessages ,sendMessage} from "../../api/Messages";
 import spinner from "../../assets/spinner.svg";
 import { socket } from "../../socket";
-import { setMessages ,clearMessages} from "../../Reducers/Messages";
+import { setMessages ,clearMessages,setActiveEmail} from "../../Reducers/Messages";
+import { use } from "react";
 export const ChatBox = () => {
   let { email } = useParams();
   const navigate = useNavigate();
   //profile data of reciver of chat
   const [userData, setUserData] = useState({ name: "", email: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const [lastMessageCreatedAt,setLastMessageCreatedAt]=useState(Date.now());
+  const [lastMessageCreatedAt,setLastMessageCreatedAt]=useState(null);
 
   //page
   const [page, setPage] = useState(1);
   let dispatch = useDispatch();
   //messages and profile info of logged in user
-  const { messages, profile } = useSelector((state) => state);
+  const { messages, profile} = useSelector((state) => state);
 
   //state for message box(input)
   const [mssgInput,setMssgInput]=useState("");
 
   //reciving message websocket event handler
   const messageReceivedHandler=useCallback((message)=>{
+    if(message.from!==email)return;//message not for this chatbox
     dispatch(setMessages(message));
-  },[])
+  },[email,dispatch]);
+
+
+
 //getting reviers data
   useEffect(() => {
     (async () => {
+      
       const userData = await getProfile({ email, dispatch, navigate });
 
       setUserData({ email: userData.email, name: userData.name });
@@ -44,19 +50,59 @@ export const ChatBox = () => {
     socket.on("messageReceived",messageReceivedHandler);
     return () => {
       socket.off("messageReceived",messageReceivedHandler);
-      dispatch(clearMessages());
     };
   },[])
-//getting messages
+
+  //clearing messages on leaving message page
+  const didMountRef = useRef(false);
+
+useEffect(() => {
+  return () => {
+    if (!didMountRef.current) {
+      // ignore StrictMode fake unmount
+      didMountRef.current = true;
+      return;
+    }
+
+    // real page exit
+    dispatch(clearMessages());
+    dispatch(setActiveEmail(null));
+    setLastMessageCreatedAt(null);
+  };
+}, []);
+
+//getting initial messages
 /** @type {import('react').RefObject<HTMLDivElement>} */
 const containerRef=useRef();
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-    //clearing previous messages
-    dispatch(clearMessages());
     setIsLoading(true);
-    const prevHeight=containerRef.current.scrollHeight;
+    const prevHeight = containerRef.current?.scrollHeight ?? 0;
+    (async ()=>{
+
+      dispatch(setActiveEmail(email));
+      await dispatch(getMessages({ dispatch, signal, to: email})).then(() => {
+        setIsLoading(false);
+      }).then(()=>{
+  
+        containerRef.current.scrollTop=containerRef.current.scrollHeight-prevHeight;
+      })
+    })();
+    
+    return () => {
+      controller.abort();
+    };
+  }, [email]);
+
+//getting pagination messages
+/** @type {import('react').RefObject<HTMLDivElement>} */
+  useEffect(() => {
+    if(lastMessageCreatedAt===null) return;//initial load handled in prev useEffect
+    const controller = new AbortController();
+    const signal = controller.signal;
+    setIsLoading(true);
+    const prevHeight = containerRef.current?.scrollHeight ?? 0;
     dispatch(getMessages({ dispatch, signal, to: email ,lastMessageCreatedAt})).then(() => {
       setIsLoading(false);
     }).then(()=>{
@@ -67,7 +113,8 @@ const containerRef=useRef();
     return () => {
       controller.abort();
     };
-  }, [email,lastMessageCreatedAt]);
+  }, [lastMessageCreatedAt]);
+
 
   // handling sending message button
   const sendMessageButton=()=>{
@@ -115,14 +162,14 @@ const containerRef=useRef();
         <h3>{userData.name}</h3>
       </div>
 
-      {messages.messages.length ? (
+      {messages.messages.length>0 ? (
         <>
           <div  className="chatbox" onScroll={handleScroll} ref={containerRef}>
             {isLoading && (
               <img className="spinner" src={spinner} alt="Loading...." />
             )}
             {messages.messages.map((message,index) => {
-              if (message.from == userData.email) {
+              if (message.from ==email) {
                 if(index==0){
                   
                   return (

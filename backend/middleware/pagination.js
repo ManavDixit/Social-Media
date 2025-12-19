@@ -41,10 +41,14 @@ export default (model) => {
             isPrevAvialble = (await model.countDocuments({ ...options, createdAt: { $gt: cursor } })) > 0;
             isNextAvailable = false;
           }
-        } else {
+        } else if(page) {
           data = await model.find(options).sort({ createdAt: -1 }).skip(startIndex).limit(limit);
           isPrevAvialble = startIndex > 0;
           isNextAvailable = endIndex < (await model.countDocuments(options)) - 1;
+        }else{
+          data = await model.find(options).sort({ createdAt: -1 }).limit(limit);
+          isPrevAvialble = false;
+          isNextAvailable = (await model.countDocuments(options)) > data.length;
         }
         req.paginatedData = data;
         req.isPrevAvialble = isPrevAvialble;
