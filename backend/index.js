@@ -4,7 +4,6 @@ import cors from "cors";
 import connectToDataBase from './db.js';
 import PostRoutes from './routes/Posts.js';
 import AuthRoutes from './routes/Auth.js';
-import UploadRoutes from './routes/Uploads.js';
 import ProfileRoutes from './routes/Profile.js';
 import MessageRoutes from './routes/Messages.js';
 import { connectToWebSocket } from "./socket/socket.js";
@@ -31,7 +30,6 @@ cloudinary.config({
 
 app.use('/posts',PostRoutes);
 app.use('/auth/',AuthRoutes);
-app.use('/uploads/',UploadRoutes);
 app.use('/profile/',ProfileRoutes);
 app.use('/message/',MessageRoutes);
 //listing to expess server
