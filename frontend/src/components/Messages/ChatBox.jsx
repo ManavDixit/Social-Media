@@ -37,8 +37,9 @@ export const ChatBox = () => {
 
 //getting reviers data
   useEffect(() => {
+    dispatch(clearMessages());
+    setLastMessageCreatedAt(null);
     (async () => {
-      
       const userData = await getProfile({ email, dispatch, navigate });
 
       setUserData({ email: userData.email, name: userData.name });
