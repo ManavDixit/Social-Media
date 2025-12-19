@@ -33,6 +33,6 @@ app.use('/profile/',ProfileRoutes);
 app.use('/message/',MessageRoutes);
 //listing to expess server
 app.listen(port,()=>{
-    console.log(`app successfuly listing at ${hostname}:${port} `);
+    console.log(`app successfuly listing at port ${port} `);
     
 })
