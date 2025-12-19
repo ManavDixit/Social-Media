@@ -7,9 +7,6 @@ import {useDispatch} from 'react-redux';
 import { setAlert } from "../../Reducers/Alert";
 import { Link } from "react-router-dom";
 const Post = forwardRef(({ title, description, postimg, postvideo ,hasLiked,postid,userName,onClick,email},ref) => {
-  const token=localStorage.getItem('token')
-  const url = import.meta.env.VITE_SERVER_URL;
-  const [imgdata, setImagedata] = useState(null);
   const [liked, setLiked] = useState(false); 
 
   useEffect(() => {
@@ -17,16 +14,6 @@ const Post = forwardRef(({ title, description, postimg, postvideo ,hasLiked,post
   }, [hasLiked]);
   
   const dispatch=useDispatch();
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      const img = postimg ? await getImage(postimg) : null;
-  
-      setImagedata(img);
-    };
-
-    if (postimg) fetchImage();
-  }, [postimg]);
 
   const handleLike=(e)=>{
     e.stopPropagation();
