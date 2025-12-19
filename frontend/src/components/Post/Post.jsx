@@ -2,7 +2,6 @@ import "./Post.css";
 import React, { useEffect, useState ,forwardRef} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment, faShare } from "@fortawesome/free-solid-svg-icons";
-import { getImage} from "../../api/Uploads";
 import { likePost } from "../../api/posts";
 import {useDispatch} from 'react-redux';
 import { setAlert } from "../../Reducers/Alert";
@@ -71,7 +70,7 @@ const Post = forwardRef(({ title, description, postimg, postvideo ,hasLiked,post
       </div>
       {postimg ? (
         <div className="img">
-          <img src={URL.createObjectURL(new Blob([imgdata]))} alt="img" />
+          <img src={postimg} alt="img" />
         </div>
       ) : null}
       {postvideo ? (
@@ -80,7 +79,7 @@ const Post = forwardRef(({ title, description, postimg, postvideo ,hasLiked,post
             controls
           >
             <source
-  src={`${url}/uploads/video?src=${encodeURIComponent(postvideo.replace(/\\/g, "/"))}&token=${token}`}
+  src={postvideo}
 />
 
           </video>

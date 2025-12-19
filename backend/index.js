@@ -8,6 +8,7 @@ import UploadRoutes from './routes/Uploads.js';
 import ProfileRoutes from './routes/Profile.js';
 import MessageRoutes from './routes/Messages.js';
 import { connectToWebSocket } from "./socket/socket.js";
+import { v2 as cloudinary } from 'cloudinary';
 const hostname='127.0.0.1';
 // const hostname='192.168.1.43';
 const port=process.env.PORT || 8000;
@@ -22,7 +23,11 @@ app.use(cors());
 //using bodyparser to parse data sended in request
 app.use(express.json({extended:true,limit:'10mb'}));
 app.use(express.urlencoded({extended:true,limit:'10mb'}));
-
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 app.use('/posts',PostRoutes);
 app.use('/auth/',AuthRoutes);

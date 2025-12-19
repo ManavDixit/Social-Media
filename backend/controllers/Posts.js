@@ -30,18 +30,34 @@ export const CreateNewPost = async (req, res) => {
     //file deatils saved by muletr in req.files
     const data = req.body;
     const email=req.email;
-    //getting user
-    const user=await Users.findOne({email});
-    //validating file type
-
-    const type=req?.file?req?.file?.mimetype:'';
-    if(req?.file && !type?.startsWith('image') && !type?.startsWith('video')){
-      return res.status(400).send({success:false,error:'invalid file type, upload an img or vedio'})
-    }
-
+    const {title,description,attachment,resource_type}=data;
+    console.log(data);
     //adding data to Posts model
-    const NewPost =type.startsWith('image')? new Posts({...data,user:email,image:req?.file?.path}) : type.startsWith('video') ?new Posts({...data,user:email,video:req?.file?.path}): new Posts({...data,user:email,image:null,video:null});
-
+    let NewPost;
+    if(attachment){
+      NewPost=resource_type.startsWith('image') ? new Posts({
+        title,
+        description,
+        image:attachment,
+        user:email
+      }) : resource_type.startsWith('video') ? new Posts({
+        title,
+        description,  
+        video:attachment,
+        user:email
+      }) : new Posts({
+        title,
+        description,
+        user:email
+      });
+    }
+    else{
+      NewPost=new Posts({
+        title,
+        description,
+        user:email
+      });
+    }
     //SAving data to dataBase
     const savedPostNewPost = await NewPost.save();
     //sending savedPost as response
@@ -52,6 +68,14 @@ export const CreateNewPost = async (req, res) => {
   }
 };
 
+//upload to cloudinary 
+export const uploadToCloudinary=async (req,res)=>{
+  try {
+    res.status(200).send({success:true,cloudinary:req.cloudinary});
+  } catch (error) {
+    res.status(500).send({success:false,error});
+  }
+};
 //function to like a post
 export const likePost=async (req,res)=>{
   const {postid}=req.headers;
@@ -94,3 +118,4 @@ export const getPostInfo=async (req,res)=>{
   res.status(500).send({success:false,error});
 }
 }
+
