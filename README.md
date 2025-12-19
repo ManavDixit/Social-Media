@@ -52,6 +52,7 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 > ![Profile Page](screenshots/profile.png)
 
 ---
+## Deployed Link:- https://social-media-sage-kappa.vercel.app/
 ## 🎬 Video Demo
 1)Dekstop Version
 https://youtu.be/RAh3QioGje4
