@@ -8,14 +8,21 @@ import ProfileRoutes from './routes/Profile.js';
 import MessageRoutes from './routes/Messages.js';
 import { connectToWebSocket } from "./socket/socket.js";
 import { v2 as cloudinary } from 'cloudinary';
+import http from 'http';
+
+
 // const hostname='192.168.1.43';
 const port=process.env.PORT || 8000;
+
 //connecting to database
 connectToDataBase();
 //connecting to websockets
-connectToWebSocket(process.env.FRONTEND_URL,port);
+connectToWebSocket(process.env.FRONTEND_URL,server);
 //inintializing express
 const app=express();
+
+//cretaing http server
+const server=http.createServer(app);
 //enabling cors
 app.use(cors());
 //using bodyparser to parse data sended in request
@@ -32,7 +39,6 @@ app.use('/auth/',AuthRoutes);
 app.use('/profile/',ProfileRoutes);
 app.use('/message/',MessageRoutes);
 //listing to expess server
-app.listen(port,()=>{
-    console.log(`app successfuly listing at port ${port} `);
-    
-})
+server.listen(port,()=>{
+    console.log(`Server running on port ${port}`);
+});

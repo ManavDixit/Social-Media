@@ -3,15 +3,14 @@ import { authenticate } from "../middleware/auth.js";
 import Users from "../models/Auth.js";
 import { sendMessage } from "../controllers/Messages.js";
 let io;
-export const connectToWebSocket = (frontendUrl, port) => {
-  io = new Server({
+export const connectToWebSocket = (frontendUrl, server) => {
+  io = new Server(server, {
     cors: {
       origin: frontendUrl,
     },
   });
 
-  io.listen(port);
-
+  
   //authenticating user
   io.use((socket, next) => {
     //creating req and res for autheticate middleware
