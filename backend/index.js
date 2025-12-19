@@ -8,7 +8,6 @@ import ProfileRoutes from './routes/Profile.js';
 import MessageRoutes from './routes/Messages.js';
 import { connectToWebSocket } from "./socket/socket.js";
 import { v2 as cloudinary } from 'cloudinary';
-const hostname='127.0.0.1';
 // const hostname='192.168.1.43';
 const port=process.env.PORT || 8000;
 //connecting to database
@@ -33,7 +32,7 @@ app.use('/auth/',AuthRoutes);
 app.use('/profile/',ProfileRoutes);
 app.use('/message/',MessageRoutes);
 //listing to expess server
-app.listen(port,hostname,()=>{
+app.listen(port,()=>{
     console.log(`app successfuly listing at ${hostname}:${port} `);
     
 })
