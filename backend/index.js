@@ -16,13 +16,13 @@ const port=process.env.PORT || 8000;
 
 //connecting to database
 connectToDataBase();
-//connecting to websockets
-connectToWebSocket(process.env.FRONTEND_URL,server);
 //inintializing express
 const app=express();
 
 //cretaing http server
 const server=http.createServer(app);
+//connecting to websockets
+connectToWebSocket(process.env.FRONTEND_URL,server);
 //enabling cors
 app.use(cors());
 //using bodyparser to parse data sended in request
