@@ -1,9 +1,9 @@
 import { io } from 'socket.io-client';
 
-
-const URL ="http://localhost:4000";
+const env = import.meta.env;
+const url = env.VITE_SERVER_URL;
 const token=localStorage.getItem("token");
-export const socket = io(URL,{
+export const socket = io(url,{
     autoConnect: false,
         auth:{token}
 });
