@@ -44,15 +44,28 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 | | | | Cursor-based pagination (time-based) |
 
 ---
+## Deployed Link:- https://social-media-sage-kappa.vercel.app/
+---
+⚠️ Email Verification Notice
+
+Email verification is currently disabled in production.
+
+Reason:
+The backend is hosted on Render (free tier), which blocks outbound SMTP connections. Because of this limitation, email services like Nodemailer / SMTP-based providers cannot send emails reliably in production, even though the implementation is correct and works locally.
+
+What works instead:
+✅ Google OAuth login is fully functional and recommended for authentication.
+
+Future plan:
+Email verification will be re-enabled once the backend is moved to a hosting provider that allows outbound SMTP (or a paid email service).
+---
 
 ## 📸 Screenshots
 
 > ![Home Feed](screenshots/home.png)  
 > ![Post View](screenshots/post.png)  
 > ![Profile Page](screenshots/profile.png)
-
 ---
-## Deployed Link:- https://social-media-sage-kappa.vercel.app/
 ## 🎬 Video Demo
 1)Dekstop Version
 https://youtu.be/RAh3QioGje4
