@@ -46,10 +46,10 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 ---
 ## Deployed Link:- https://social-media-sage-kappa.vercel.app/
 Deployed on:
-Backend:Render
-Frontend:Vercel
-Media:Cloudfare
-Database:MongoDb Atlas
+-Backend:Render
+-Frontend:Vercel
+-Media:Cloudfare
+-Database:MongoDb Atlas
 ---
 ⚠️ Email Verification Notice
 
