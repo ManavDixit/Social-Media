@@ -71,6 +71,8 @@ Email verification will be re-enabled once the backend is moved to a hosting pro
 https://youtu.be/RAh3QioGje4
 2)Phone Version
 https://youtube.com/shorts/_UyYLJPpfQo
+3)Messaging System
+https://www.youtube.com/watch?v=L3Y64b9Z7ag
 ## ⚙️ Installation & Setup
 
 # 1. Clone the repo
