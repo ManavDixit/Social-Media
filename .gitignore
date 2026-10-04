@@ -1,0 +1,4 @@
+.env
+.env.*
+node_modules/
+**/e-iHEAD-30

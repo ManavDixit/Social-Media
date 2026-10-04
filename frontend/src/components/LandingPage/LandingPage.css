@@ -1,46 +1,138 @@
+/* Welcome screen: navy hero + centered Material 3 card (covers the whole viewport, as before) */
+@keyframes landing-card-in{
+    from{ opacity: 0; transform: translateY(24px) scale(.97); }
+    to{ opacity: 1; transform: none; }
+}
+
 #landingPage{
     display: flex;
     align-items: center;
     height: 100dvh;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     width: 100%;
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
-    background: rgba(0, 0, 0, .7);
+    z-index: 1;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(120,160,230,.35), transparent 45%),
+        linear-gradient(135deg, var(--md-primary) 0%, #1A3E75 55%, #2C5BA3 100%);
 }
+/* soft decorative circles */
+#landingPage::before,
+#landingPage::after{
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.07);
+    pointer-events: none;
+}
+#landingPage::before{
+    width: 34rem;
+    height: 34rem;
+    top: -12rem;
+    right: -10rem;
+}
+#landingPage::after{
+    width: 24rem;
+    height: 24rem;
+    bottom: -9rem;
+    left: -7rem;
+}
+
 #landingPage .container{
-    background-color: white;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
-    border-radius: .5rem;
-    box-shadow: 3px 3px 10px grey;
+    width: 90%;
+    max-width: 26rem;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    background-color: var(--md-surface-lowest);
+    border-radius: 2rem;
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .55);
+    animation: landing-card-in .45s cubic-bezier(.2, 0, 0, 1);
+}
+/* lock icon in a tonal circle */
+#landingPage .container::before{
+    content: '';
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23001B3E'%3E%3Cpath d='M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z'/%3E%3C/svg%3E")
+            center / 46% no-repeat,
+        var(--md-primary-container);
 }
 #landingPage .container h1{
-margin: 1rem;
+    margin: 1.25rem 0 .6rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--md-on-surface);
 }
 #landingPage .container p{
-    margin: .6rem;
-    }
-    
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--md-on-surface-variant);
+}
+
 #landingPage .buttons{
     width: 100%;
     display: flex;
     justify-content: center;
+    gap: .75rem;
+    margin-top: 1.75rem;
 }
 #landingPage .buttons button{
-    margin: 1rem;
-    font-size: 1.2rem;
-    padding: .5rem;
-    width: 5rem;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: .3rem;
+    flex: 1;
+    height: 3rem;
+    margin: 0;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .02em;
+    border-radius: 999px;
     cursor: pointer;
+    transition: box-shadow .2s, background-color .2s, background-image .2s, transform .1s;
+}
+/* Login = filled */
+#landingPage .buttons button:first-child{
+    width: auto;
+    color: var(--md-on-primary);
+    background-color: var(--md-primary);
+    border: none;
+    box-shadow: var(--md-elev-1);
+}
+#landingPage .buttons button:first-child:hover{
+    background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1));
+    box-shadow: var(--md-elev-2);
+}
+/* Signup = outlined */
+#landingPage .buttons button:last-child{
+    width: auto;
+    color: var(--md-primary);
+    background-color: transparent;
+    border: 1.5px solid var(--md-outline);
+}
+#landingPage .buttons button:last-child:hover{
+    background-color: color-mix(in srgb, var(--md-primary) 8%, transparent);
+}
+#landingPage .buttons button:active{
+    transform: scale(.97);
+}
+#landingPage .buttons button:focus-visible{
+    outline: 3px solid var(--md-primary-container);
+    outline-offset: 2px;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    #landingPage, #landingPage *{
+        transition: none !important;
+        animation: none !important;
+    }
+}

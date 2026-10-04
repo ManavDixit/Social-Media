@@ -88,9 +88,9 @@ const Profile = () => {
           }
           <div className="navigationButtons">
 
-          <button onClick={Navigate}>{data.posts.length} POSTS</button>
-          <button onClick={Navigate} >{data.followers.length} FOLLOWERS</button>
-          <button onClick={Navigate} >{data.following.length} FOLLOWING</button>
+          <button className={mode==='posts'?'active':''} onClick={Navigate}>{data.posts.length} POSTS</button>
+          <button className={mode==='followers'?'active':''} onClick={Navigate} >{data.followers.length} FOLLOWERS</button>
+          <button className={mode==='following'?'active':''} onClick={Navigate} >{data.following.length} FOLLOWING</button>
           </div>
         </div>
         {

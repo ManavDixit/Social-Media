@@ -1,14 +1,22 @@
+/* Comments section: heading, composer, list */
 .comments{
-    /* border:2px solid black; */
     width: 90%;
-    margin: auto;
-    max-height: 92dvh;
+    max-width: 38rem;
+    margin: 0 auto;
+}
+.comments::before{
+    content: 'Comments';
+    display: block;
+    padding: 0 .5rem .75rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--md-on-surface);
 }
 .comments .userInfo a{
     cursor: pointer;
     display: inline;
     text-decoration: none;
-    color: black;
+    color: var(--md-on-surface);
 }
 .comments .userInfo a:hover{
     text-decoration: underline;
@@ -16,31 +24,67 @@
 .comments .spinner{
     width: 3rem;
     display: block;
-    margin: auto;
+    margin: 1.5rem auto;
 }
+
+/* composer: pill text field with an inline Post button */
 .comments .addCommentBox{
-    border-bottom: 2px solid grey;
-    height: 4rem;
     display: flex;
     align-items: center;
-    padding: .5rem;
+    gap: .75rem;
+    height: 3.5rem;
+    margin-bottom: 1rem;
+    padding: .5rem .5rem .5rem 1.5rem;
+    background: var(--md-surface-lowest);
+    border: none;
+    border-radius: 999px;
+    box-shadow: var(--md-elev-1);
+    transition: box-shadow .2s;
+}
+.comments .addCommentBox:focus-within{
+    box-shadow: var(--md-elev-2), 0 0 0 2px var(--md-primary);
 }
 .comments .addCommentBox input{
-padding: .5rem;
-width: 80%;
-background: transparent;
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    padding: 0;
+    font-size: 1rem;
+    color: var(--md-on-surface);
+    background: transparent;
+    border: none;
     outline: none;
-    border:none;
-    border-bottom: 2px solid grey;
+}
+.comments .addCommentBox input::placeholder{
+    color: var(--md-on-surface-variant);
+    opacity: .8;
 }
 .comments .addCommentBox button{
-    margin: .5rem;
-    width: 23%;
-    font-size: 1.2rem;
-    padding: .5rem;
-    background-color: var(--primary-color);
-    border-radius: .4rem;
-    color: white;
+    flex-shrink: 0;
+    width: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0 1.5rem;
+    font-size: .95rem;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: var(--md-on-primary);
+    background-color: var(--md-primary);
     border: none;
+    border-radius: 999px;
     cursor: pointer;
+    transition: background-image .2s, transform .1s;
+}
+.comments .addCommentBox button:hover{
+    background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1));
+}
+.comments .addCommentBox button:active{
+    background-image: linear-gradient(rgba(255,255,255,.16), rgba(255,255,255,.16));
+    transform: scale(.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .comments *{
+        transition: none !important;
+    }
 }

@@ -1,89 +1,134 @@
+/* Material 3 navigation drawer */
 #Sidebar{
     display: flex;
     height: 92dvh;
     align-items: center;
     flex-direction: column;
-    background-color: rgba(220,220,220,.1);
-    transition: all .2s;
+    background-color: transparent;
+    transition: width .2s;
     overflow: hidden;
     position: relative;
-   
 }
+
+/* ---------- destinations ---------- */
 #Sidebar ul{
-    margin-top:6rem;
     width: 100%;
-    height: calc(80% - 6rem);
+    margin-top: .75rem;
+    padding: 0 .75rem 0 1rem;
 }
 #Sidebar ul li{
-    pointer-events: none;
-    cursor: pointer;
-    margin:3rem auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 3.5rem;
+    margin: .25rem 0;
+    padding: 0 1.5rem;
     list-style: none;
-    width: 80%;
-    line-height: 3rem;
-}
-#Sidebar ul li a{
-    pointer-events: auto;
-    text-decoration: none;
-    text-align: center;
-    color:var(--primary-color)
-}
-#Sidebar ul li svg{
-    color:var(--primary-color);
-    margin-right: 2rem ;
+    border-radius: 999px;
+    color: var(--md-on-surface-variant);
+    transition: background-color .15s, color .15s;
 }
 #Sidebar ul li:hover{
-    background-color: #EDF2FC;
-    font-weight: bolder;
+    background-color: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
 }
+#Sidebar ul li:active{
+    background-color: color-mix(in srgb, var(--md-secondary-container) 80%, var(--md-on-surface));
+}
+#Sidebar ul li svg{
+    flex-shrink: 0;
+    width: 1.5rem;
+    font-size: 1.2rem;
+    color: inherit;
+}
+#Sidebar ul li a{
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .01em;
+    text-decoration: none;
+    color: inherit;
+}
+/* stretch the link over the whole pill so icon + padding are clickable */
+#Sidebar ul li a::after{
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+}
+#Sidebar ul li a:focus-visible{
+    outline: none;
+}
+#Sidebar ul li a:focus-visible::after{
+    outline: 3px solid var(--md-primary);
+    outline-offset: -3px;
+}
+
+/* ---------- avatar + Create (mobile only) ---------- */
 #Sidebar .others{
-    width: 100%;
     display: none !important;
     align-items: center;
-  position: absolute;
-  bottom: 2rem;
-    padding: 1.2rem;
-    display: none;
-}
-#Sidebar .others button{
-    font-size: 1.1rem;
-    width: 10em;
-    padding: .5rem;
-    background:#001C40 ;
-    color: white;
-    border-radius: .5rem;
-    margin: 1rem;
-    cursor: pointer;
+    gap: 1rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    background: var(--md-surface-low);
+    border-radius: 1.75rem 1.75rem 0 0;
 }
 #Sidebar .others img{
-    width: 2.2rem;
-    border: 2px solid var(--primary-color);
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    object-fit: cover;
+    background: var(--md-surface-lowest);
+    border: none;
     border-radius: 50%;
-    padding: .2rem;
-    margin-right: .5rem;
+    box-shadow: 0 0 0 2px var(--md-primary-container), var(--md-elev-1);
 }
-#user img{
-    width: 2rem;
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    padding: .2rem;
-    margin-right: .5rem;
+#Sidebar .others button{
+    flex: 1;
+    height: 3.5rem;
+    padding: 0 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: var(--md-on-primary);
+    background-color: var(--md-primary);
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    box-shadow: var(--md-elev-3);
+    transition: box-shadow .2s, background-image .2s, transform .1s;
 }
-@media only screen and (max-width: 950px) {
+#Sidebar .others button:hover{
+    background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1));
+}
+#Sidebar .others button:active{
+    background-image: linear-gradient(rgba(255,255,255,.16), rgba(255,255,255,.16));
+    transform: scale(.98);
+}
 
+/* ---------- responsive (same breakpoints and widths as before) ---------- */
+@media only screen and (max-width: 950px) {
     #Sidebar{
         width: 40%;
     }
-
-    
 }
 @media only screen and (max-width:750px){
     #Sidebar{
-        width:0% !important;
-        overflow:hidden;
+        width: 0% !important;
+        overflow: hidden;
     }
     #Sidebar .others{
         display: flex !important;
-    
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #Sidebar, #Sidebar *{
+        transition: none !important;
     }
 }

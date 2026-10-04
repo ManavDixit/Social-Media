@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass,faBars,faXmark} from '@fortawesome/free-solid-svg-icons';
 import userimg from './user.png';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 const Topbar = () => {
   const [ham_icon,setham_icon]=useState(faBars);
   const Sidebar=document.getElementById('Sidebar');
@@ -54,7 +55,9 @@ const Topbar = () => {
             <button onClick={()=>{
                document.getElementById('CreatePost').style.display='flex';
             }}>Create</button>
-            <img src={profile?.pfp||userimg} alt="profile pic" />
+            <Link to={`/profile?email=${encodeURIComponent(profile?.email||'')}`} title="Your profile">
+              <img src={profile?.pfp||userimg} alt="profile pic" />
+            </Link>
             <FontAwesomeIcon icon={ham_icon} id='hamburger_icon' onClick={toggle_sidebar}/>
         </div>
         </>):null

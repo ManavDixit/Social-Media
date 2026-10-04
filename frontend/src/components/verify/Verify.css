@@ -1,0 +1,116 @@
+/* ---------------------------------------------------------------
+   Verify.jsx and GoogleAuth.jsx have no ids/classes of their own,
+   so these rules find them by structure (CSS only, JSX untouched).
+   --------------------------------------------------------------- */
+@keyframes status-in{
+    from{ opacity: 0; transform: translateY(16px); }
+    to{ opacity: 1; transform: none; }
+}
+
+/* ===== Verify: <div><h3>message</h3></div> directly inside #main ===== */
+#main > div:has(> h3:only-child){
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 92dvh;
+    padding: 1rem;
+}
+#main > div:has(> h3:only-child) > h3{
+    width: 100%;
+    max-width: 28rem;
+    padding: 2rem 2rem 2.25rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--md-on-surface);
+    background: var(--md-surface-lowest);
+    border-radius: 1.75rem;
+    box-shadow: var(--md-elev-2);
+    animation: status-in .4s cubic-bezier(.2, 0, 0, 1);
+}
+/* mail icon in a tonal circle */
+#main > div:has(> h3:only-child) > h3::before{
+    content: '';
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 0 auto 1.25rem;
+    border-radius: 50%;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23001B3E'%3E%3Cpath d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E")
+            center / 46% no-repeat,
+        var(--md-primary-container);
+}
+
+/* ===== GoogleAuth: <h2>message</h2><a>Go to home</a> directly inside #main ===== */
+#main:has(> h2 + a){
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    min-height: 92dvh;
+    padding: 1rem;
+}
+#main > h2:has(+ a){
+    width: 100%;
+    max-width: 28rem;
+    padding: 2rem 2rem 2.25rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--md-on-surface);
+    background: var(--md-surface-lowest);
+    border-radius: 1.75rem;
+    box-shadow: var(--md-elev-2);
+    animation: status-in .4s cubic-bezier(.2, 0, 0, 1);
+}
+/* check icon in a tonal circle */
+#main > h2:has(+ a)::before{
+    content: '';
+    display: block;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 0 auto 1.25rem;
+    border-radius: 50%;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23001B3E'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E")
+            center / 46% no-repeat,
+        var(--md-primary-container);
+}
+#main > h2 + a{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    padding: 0 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: var(--md-on-primary);
+    text-decoration: none;
+    background-color: var(--md-primary);
+    border-radius: 999px;
+    box-shadow: var(--md-elev-1);
+    transition: box-shadow .2s, background-image .2s, transform .1s;
+}
+#main > h2 + a:hover{
+    background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1));
+    box-shadow: var(--md-elev-2);
+}
+#main > h2 + a:active{
+    transform: scale(.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #main > h3, #main > h2, #main > h2 + a{
+        transition: none !important;
+        animation: none !important;
+    }
+    #main > div:has(> h3:only-child) > h3,
+    #main > h2:has(+ a){
+        animation: none !important;
+    }
+}

@@ -1,20 +1,48 @@
+/* One comment: tonal avatar, indented message, small heart button */
+@keyframes comment-in{
+    from{ opacity: 0; transform: translateY(8px); }
+    to{ opacity: 1; transform: none; }
+}
+.comment{
+    width: 100%;
+    margin: .6rem 0;
+    background: var(--md-surface-lowest);
+    border: none;
+    border-radius: 1.25rem;
+    box-shadow: var(--md-elev-1);
+    animation: comment-in .3s ease backwards;
+}
+
 .comment .userInfo{
-    padding: .2rem 1rem;
-    border-bottom: 1px solid black;
-    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    padding: .9rem 1.1rem .3rem;
+    border: none;
 }
 .comment .userInfo .userPicName{
-    display: inline-flex;
-    margin-right:.5rem;
-    padding: 1rem ;
-    background: var(--primary-color);
-    color:white;
-    width: 1.5rem;
-    height: 1.5rem;
-align-items: center;
-justify-content: center;
-border-radius: 50%;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    margin: 0;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--md-on-primary-container);
+    background: var(--md-primary-container);
+    border-radius: 50%;
+}
+.comment .userInfo a{
+    font-size: .95rem;
+    font-weight: 500;
+    color: var(--md-on-surface);
+    text-decoration: none;
+}
+.comment .userInfo a:hover{
+    text-decoration: underline;
 }
 .comment .userInfo p{
     cursor: pointer;
@@ -23,25 +51,55 @@ border-radius: 50%;
 .comment .userInfo p:hover{
     text-decoration: underline;
 }
-.comment{
-        width:100%;
-        margin:1rem auto;
-        border: 1px solid black;
-        border-radius: .2rem;
-        
-}
+
+/* message is indented to line up under the name */
 .comment .message{
-    padding: 0.2rem 0.6rem;
+    padding: .1rem 1.1rem .4rem 4.05rem;
+    font-size: .95rem;
+    line-height: 1.55;
+    color: var(--md-on-surface);
     overflow: hidden;
+    overflow-wrap: anywhere;
 }
+
 .comment .buttons{
-    height: 3.5rem;
-    font-size: 1.5rem;
     display: flex;
     align-items: center;
-    /* border-top: 1px solid black; */
+    padding: 0 .75rem .55rem 3.5rem;
+    border: none;
 }
 .comment .buttons svg{
-    margin: 0 .6rem;
+    box-sizing: content-box;
+    width: 1.1rem;
+    height: 1.1rem;
+    padding: .55rem;
+    margin: 0;
+    color: var(--md-on-surface-variant);
+    border-radius: 50%;
     cursor: pointer;
+    transition: background-color .15s, color .15s, transform .1s;
+}
+.comment .buttons svg:hover{
+    background-color: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
+}
+.comment .buttons svg:active{
+    background-color: color-mix(in srgb, var(--md-on-surface) 14%, transparent);
+    transform: scale(.92);
+}
+/* heart colour is set inline by Comment.jsx (red / black); restyled from CSS only */
+.comment .buttons svg[style*="black"]{
+    color: var(--md-on-surface-variant) !important;
+}
+.comment .buttons svg[style*="red"]{
+    color: var(--md-like) !important;
+}
+.comment .buttons svg[style*="red"]:hover{
+    background-color: color-mix(in srgb, var(--md-like) 12%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .comment, .comment *{
+        transition: none !important;
+        animation: none !important;
+    }
 }

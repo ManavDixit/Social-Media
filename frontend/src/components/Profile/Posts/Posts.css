@@ -1,7 +1,8 @@
+/* Profile > Posts tab. Cards themselves are styled by Post.css. */
 .profile-postscontainer{
-    height: 100%;
-    overflow-y: auto;
-    margin:3rem 0;
+    height: auto;
+    overflow: visible;
+    margin: 1rem 0 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,4 +10,10 @@
 .profile-postscontainer h2{
     display: block;
     width: 90%;
+    max-width: 38rem;
+    margin: 0 0 .4rem;
+    padding: 0 .5rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--md-on-surface);
 }

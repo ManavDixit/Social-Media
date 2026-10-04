@@ -160,7 +160,7 @@ const containerRef=useRef();
    
     <div className="chat" >
       <div className="reciverInfo">
-        <h3>{userData.name}</h3>
+        <h3 title="View profile" onClick={()=>{navigate(`/profile?email=${encodeURIComponent(email)}`)}}>{userData.name}</h3>
       </div>
 
       {messages.messages.length>0 ? (
@@ -224,6 +224,12 @@ const containerRef=useRef();
       <div className="textbox">
         <input type="text" value={mssgInput} className="messageBox" placeholder="Type Here ..." onChange={(e)=>{
             setMssgInput(e.target.value);
+        }} onKeyDown={(e)=>{
+            //Enter sends the message (not while an IME is composing, and never a blank message)
+            if(e.key==='Enter' && !e.nativeEvent.isComposing){
+              e.preventDefault();
+              if(mssgInput.trim()!=='') sendMessageButton();
+            }
         }}/>
         <button onClick={sendMessageButton}>SEND</button>
       </div>

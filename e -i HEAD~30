@@ -1,0 +1,43 @@
+[33md6129f3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix chat message lifecycle, reducer gating, and chat switching behavior
+[33m8fdedbb[m trying to fix messging bug
+[33m8a109cb[m trying to fix messging bug
+[33ma767e39[m trying to fix messging bug
+[33ma9edb1a[m trying to fix messging bug
+[33m138ef45[m trying to fix messging bug
+[33mf9d32ea[m trying to fix this bug:(
+[33m0584657[m trying to fix messging bug
+[33m2b4659e[m trying to fix messging bug
+[33m314a91e[m trying to fix messging bug
+[33m311e6cc[m fixed syntax error
+[33mc4a7a10[m trying to fix messege clearning before getining messgeses of new chat
+[33m1a6363e[m fixed loop caused by clering messges every time bvfre fethcing
+[33m4268367[m added code to clear prev messges befre getting messges for new chat
+[33ma7920ce[m Removed old getImage function , which fetches imge stored loaclly on server , as now images are stored on cloudfare
+[33m09355a0[m moved connectToWebSocket function after creation of server
+[33m493e947[m created http SERVER to use for both socket and express
+[33m13684df[m changed port for websocket for hosting
+[33m3d98c4f[m change vercel.json
+[33m059ecbb[m added vercel.json
+[33m8ccac34[m Update log message for server listening
+[33m8d6ea29[m removed localhost as hostname
+[33me035cb4[m removed old uploads to server imports
+[33m6289f05[m Change start script
+[33m29aed1e[m Integrate Cloudinary signed uploads for posts (images & videos)
+[33m942b2c2[m Update README.md
+[33m03c48ea[m update README with messaging system details
+[33m1caf373[m Message system built
+[33me8323af[m Added information about Notification UI and its future plan
+[33mc040f59[m Update README.md
+[33mb86e8f3[m Added phone demo link
+[33mb6e668a[m Update README.md
+[33mb9c530d[m Update README.md
+[33m5976a93[m Update README.md
+[33m068f25e[m added app demo in readme
+[33m356fc52[m Update README.md
+[33mcd3582d[m added screenshots
+[33mfbfdbb5[m Update README.md
+[33mdc708cb[m Update README.md
+[33ma1f6ddb[m Merge branch 'main'
+[33md4b2b82[m Initial commit
+[33m605f237[m[33m ([m[1;31morigin/main[m[33m)[m Initial commit
+[33mc0b9237[m Initial commit

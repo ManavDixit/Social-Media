@@ -1,22 +1,44 @@
+/* Material 3 filled card with a list */
 #notificationBox{
-    width: 60%;
-    background-color: rgba(220,220,220,.1);
-    box-shadow: 2px 2px 6px black;
-    margin:2rem auto;
-    border-radius: .5rem;
-    max-height: 50%;
+    width: 85%;
+    margin: 1rem auto;
+    max-height: 75dvh;
     overflow-y: auto;
+    padding-bottom: .5rem;
+    background-color: var(--md-surface-lowest);
+    border-radius: 1.5rem;
+    box-shadow: var(--md-elev-1);
 }
 #notificationBox h2{
-    height: 3rem;
-    border-bottom: 2px solid black;
-    padding: .5rem;
+    padding: 1.25rem 1.5rem .75rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--md-on-surface);
 }
 #notificationBox p{
-    padding: .5rem;
-    font-size: 1rem;
-    border-bottom: 2px solid black;
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    padding: .9rem 1.5rem;
+    font-size: .92rem;
+    color: var(--md-on-surface-variant);
     cursor: pointer;
+    transition: background-color .15s;
+}
+/* unread dot */
+#notificationBox p::before{
+    content: '';
+    flex-shrink: 0;
+    width: .6rem;
+    height: .6rem;
+    border-radius: 50%;
+    background: var(--md-primary);
+}
+#notificationBox p:hover{
+    background-color: color-mix(in srgb, var(--md-on-surface) 8%, transparent);
+}
+#notificationBox p:active{
+    background-color: color-mix(in srgb, var(--md-on-surface) 14%, transparent);
 }
 
 
@@ -27,4 +49,10 @@
     display: none !important;
 }
     
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #notificationBox *{
+        transition: none !important;
+    }
 }

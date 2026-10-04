@@ -1,16 +1,42 @@
 #PostContainer{
-    height: 90dvh;
-    overflow-y: scroll;
+    height: 92dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding: .5rem 0 2rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-outline-variant) transparent;
 }
+#PostContainer::-webkit-scrollbar{
+    width: 6px;
+}
+#PostContainer::-webkit-scrollbar-track{
+    background: transparent;
+}
+#PostContainer::-webkit-scrollbar-button{
+    display: none;
+    width: 0;
+    height: 0;
+}
+#PostContainer::-webkit-scrollbar-thumb{
+    background: var(--md-outline-variant);
+    border-radius: 6px;
+}
+
+/* empty state */
 #PostContainer h1{
-    margin: 2rem;
+    margin: 4rem 2rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: center;
+    color: var(--md-on-surface-variant);
 }
+
 #PostContainer .spinner{
+    flex-shrink: 0;
     width: 3rem;
+    margin: 1.5rem auto;
 }
-
-

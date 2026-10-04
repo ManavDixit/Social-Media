@@ -1,136 +1,325 @@
+/* Kept from the original: the app relies on inner scroll areas, not page scroll */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
+
+/* Material 3: two rounded panels (contacts + chat) side by side */
 #messages{
     display: flex;
     flex-direction: row;
+    gap: 1rem;
     width: 78%;
-    height:calc(100dvh - 8vh);
+    height: calc(100dvh - 8vh);
+    padding: .25rem 1rem 1rem .5rem;
 }
 
+/* ---------- contacts panel ---------- */
 .contacts{
-    width:30%;
-    /* border:2px solid black; */
+    width: 30%;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: .75rem;
+    background: var(--md-surface-lowest);
+    border-radius: 1.75rem;
+    box-shadow: var(--md-elev-1);
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-outline-variant) transparent;
 }
 .contacts h1{
-    padding:0 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid black;
-    height:10%;
+    height: auto;
+    margin-bottom: .25rem;
+    padding: 1.25rem 1.5rem .9rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--md-on-surface);
+    background: var(--md-surface-lowest);
+    border: none;
 }
 .contacts div{
-    padding: 1rem;
-    border-bottom: 2px solid black;
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    margin: .15rem .6rem;
+    padding: .7rem .9rem;
     font-size: 1rem;
+    font-weight: 500;
+    color: var(--md-on-surface);
+    overflow-wrap: anywhere;
+    border: none;
+    border-radius: 1rem;
+    transition: background-color .25s ease;
+}
+/* round avatar with a person icon */
+.contacts div::before,
+.reciverInfo::before{
+    content: '';
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23001B3E'%3E%3Cpath d='M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2.25c-3.03 0-9 1.52-9 4.5V21h18v-2.25c0-2.98-5.97-4.5-9-4.5z'/%3E%3C/svg%3E")
+        center / 58% no-repeat,
+        var(--md-primary-container);
 }
 .contacts div:hover{
     cursor: pointer;
-    font-size: 1.1rem;
-    /* padding: 1.1rem; */
-    background: #f1f1f1;
+    font-size: 1rem;
+    background: var(--md-secondary-container);
 }
+.contacts div:active{
+    background: color-mix(in srgb, var(--md-secondary-container) 80%, var(--md-on-surface));
+}
+
+/* ---------- chat panel ---------- */
 .chat{
-    width:70%;
-    border-left:2px solid black;
-    
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+    background: var(--md-surface-lowest);
+    border: none;
+    border-radius: 1.75rem;
+    box-shadow: var(--md-elev-1);
 }
 .chat div{
-    width:100%;
+    width: 100%;
 }
 
+/* "select a chat" empty state */
+.chat > h1{
+    margin: auto;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-align: center;
+    color: var(--md-on-surface-variant);
+}
+.chat > h1::before{
+    content: '';
+    display: block;
+    width: 5.5rem;
+    height: 5.5rem;
+    margin: 0 auto 1.25rem;
+    border-radius: 50%;
+    background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23001B3E'%3E%3Cpath d='M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z'/%3E%3C/svg%3E")
+        center / 45% no-repeat,
+        var(--md-primary-container);
+}
 
+/* header: avatar + name */
 .reciverInfo{
-    padding:0 1rem;
+    flex: none;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid black;
-    height:10%;
+    gap: .9rem;
+    height: auto;
+    min-height: 4.5rem;
+    padding: .75rem 1.5rem;
+    border: none;
+    box-shadow: 0 1px 0 var(--md-surface-container);
+}
+.reciverInfo h3{
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--md-on-surface);
 }
 .reciverInfo h3:hover{
     cursor: pointer;
+    text-decoration: underline;
 }
 
-/* messages section  */
+/* ---------- messages ---------- */
 .chatbox{
-    height: 80%;
-    border-bottom: 2px solid black;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    height: auto;
+    padding: 1rem 1.25rem;
     overflow-y: auto;
-}
-.chatbox div{
-    border-radius: .5rem;
-    margin: 1rem;
-    overflow-y: auto;
-    white-space: normal; 
-    overflow-wrap: break-word;
-     overflow-x: hidden;
-     width:45%;
-     max-height: 12rem;
-     padding: .7rem 0;
-     background: #F1F1F1;
-}
-
-.chatbox div h4{
-    padding:0 .7rem;
-    font-weight: 500;
-    border-bottom: 1px solid black;
-}
-.chatbox div p{
-    padding:0 .7rem;
-}
-.chatbox .sentMessage{
-    margin-left: auto;
-}
-.chatbox .recivedMessage{
-    margin-right: auto;
+    background: var(--md-surface);
+    border: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-outline-variant) transparent;
 }
 .chatbox .spinner{
+    flex-shrink: 0;
+    align-self: center;
     width: 3rem;
 }
-/* message input box and send button  */
+.chatbox h1{
+    margin: auto;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--md-on-surface-variant);
+}
+/* the empty <p> used as the scroll-to-bottom anchor */
+.chatbox > p{
+    flex-shrink: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.chatbox .sentMessage,
+.chatbox .recivedMessage{
+    flex-shrink: 0;
+    width: fit-content;
+    max-width: 75%;
+    max-height: 16rem;
+    margin: 0;
+    padding: .6rem .95rem .65rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    animation: bubble-in .25s cubic-bezier(.2, 0, 0, 1) backwards;
+}
+.chatbox .sentMessage{
+    align-self: flex-end;
+    margin-left: auto;
+    color: var(--md-on-primary);
+    background: var(--md-primary);
+    border-radius: 1.25rem 1.25rem .35rem 1.25rem;
+}
+.chatbox .recivedMessage{
+    align-self: flex-start;
+    margin-right: auto;
+    color: var(--md-on-surface);
+    background: var(--md-surface-lowest);
+    border-radius: 1.25rem 1.25rem 1.25rem .35rem;
+    box-shadow: var(--md-elev-1);
+}
+.chatbox .sentMessage h4,
+.chatbox .recivedMessage h4{
+    margin-bottom: .2rem;
+    padding: 0;
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .03em;
+    opacity: .7;
+    border: none;
+}
+.chatbox .sentMessage p,
+.chatbox .recivedMessage p{
+    padding: 0;
+    font-size: .95rem;
+    line-height: 1.45;
+}
+@keyframes bubble-in{
+    from{ opacity: 0; transform: translateY(8px) scale(.97); }
+    to{ opacity: 1; transform: none; }
+}
+
+/* ---------- message input + send ---------- */
 .textbox{
-    height: 10%;
-    
+    flex: none;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: .75rem;
+    height: auto;
+    padding: .75rem 1rem 1rem;
     flex-direction: row;
-    padding: .7rem 0rem;
+    background: var(--md-surface-lowest);
 }
-.textbox button{
-    width: 20%;
-    margin: 0 1rem;
-    background-color: var(--primary-color);
-    border: none;
-    color: white;
-    border-radius: .4rem;
-}
-.textbox button:hover{
-    cursor: pointer;
-}
-
 .textbox input{
-    width: 80%;
-    padding: 5px;
-    border: none;
-    outline: none;
-    background: #f7f9fc9a;
-    border-bottom: 2px solid grey;
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    height: 3rem;
+    margin: 0;
+    padding: 0 1.4rem;
     font-size: 1rem;
-    margin: 0 1rem;
+    color: var(--md-on-surface);
+    background: var(--md-surface-container);
+    border: none;
+    border-radius: 999px;
+    outline: none;
+    transition: background-color .2s, box-shadow .2s;
+}
+.textbox input::placeholder{
+    color: var(--md-on-surface-variant);
+    opacity: .8;
 }
 .textbox input:focus{
-    
-    border-bottom: 2px solid black;
+    background: var(--md-surface-lowest);
+    box-shadow: 0 0 0 2px var(--md-primary);
+    border: none;
+}
+.textbox button{
+    flex-shrink: 0;
+    width: auto;
+    height: 3rem;
+    margin: 0;
+    padding: 0 1.75rem;
+    font-size: .9rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    color: var(--md-on-primary);
+    background-color: var(--md-primary);
+    border: none;
+    border-radius: 999px;
+    box-shadow: var(--md-elev-1);
+    cursor: pointer;
+    transition: box-shadow .2s, background-image .2s, transform .1s;
+}
+.textbox button:hover{
+    background-image: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1));
+    box-shadow: var(--md-elev-2);
+}
+.textbox button:active{
+    background-image: linear-gradient(rgba(255,255,255,.16), rgba(255,255,255,.16));
+    box-shadow: none;
+    transform: scale(.97);
 }
 
+/* ---------- responsive ---------- */
+@media only screen and (max-width:750px){
+    #messages{
+        gap: .6rem;
+        padding: .25rem .6rem .75rem;
+    }
+    .contacts div::before{
+        display: none;
+    }
+    .contacts h1{
+        padding: 1rem 1rem .75rem;
+    }
+    .reciverInfo{
+        padding: .6rem 1rem;
+    }
+    .chatbox .sentMessage,
+    .chatbox .recivedMessage{
+        max-width: 85%;
+    }
+}
 @media only screen and (max-width:400px){
     .contacts{
        width: 100% !important;
     }
     .chat{
         width: 100% !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #messages *{
+        transition: none !important;
+        animation: none !important;
     }
 }
