@@ -43,7 +43,7 @@ const Topbar = () => {
   },[location.pathname])
   return (
     <div id="topbar">
-        <h3 id="logo">Logo</h3>
+        <h3 id="logo">Snaply</h3>
         {token?(
         <>
         <div id="search">
