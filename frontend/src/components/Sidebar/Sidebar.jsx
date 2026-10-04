@@ -17,7 +17,9 @@ const Sidebar = () => {
         <li><FontAwesomeIcon icon={faUser}/><Link to={`/profile?email=${profile.email}`}>Profile</Link></li>
       </ul>
       <div className="others">
+        <Link to={`/profile?email=${encodeURIComponent(profile?.email||'')}`} title="Your profile">
             <img src={profile?.pfp||userimg} alt="profile pic" />
+        </Link>
             <button  onClick={()=>{
               document.getElementById('CreatePost').style.display='flex';
             }}>Create</button>
