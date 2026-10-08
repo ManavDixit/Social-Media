@@ -32,10 +32,10 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 
 ### 🔔 Notifications
 
-- Real-time notifications for likes, comments, and follows
+- Real-time notifications for messages,likes, comments, and follows
 - Notifications are persisted in the database
 - Notification read/unread state is supported
-- Notification UI is available in the desktop version
+
 
 ---
 
