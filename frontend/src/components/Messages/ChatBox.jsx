@@ -119,6 +119,7 @@ const containerRef=useRef();
 
   // handling sending message button
   const sendMessageButton=()=>{
+    if(mssgInput.trim()==='') return;
     sendMessage({message:mssgInput,from:profile.email,to:userData.email,dispatch});
     setMssgInput("");
   }
@@ -272,7 +273,7 @@ const containerRef=useRef();
               if(mssgInput.trim()!=='') sendMessageButton();
             }
         }}/> 
-        <button onClick={sendMessageButton}>SEND</button>
+        <button onClick={sendMessageButton} disabled={mssgInput.trim()===''}>SEND</button>
       </div>
     </div>
   );
