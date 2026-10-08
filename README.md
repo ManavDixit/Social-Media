@@ -31,7 +31,12 @@ A full-featured social media platform built using the MERN stack (MongoDB, Expre
 - Supports continuous conversation without breaking UX during new incoming messages
 
 ### 🔔 Notifications
-- Planned for future: real-time notifications for likes, comments, follows.Although notification UI placeholder exist in Desktop version.
+
+- Real-time notifications for likes, comments, and follows
+- Notifications are persisted in the database
+- Notification read/unread state is supported
+- Notification UI is available in the desktop version
+
 ---
 
 ## 🛠️ Tech Stack
