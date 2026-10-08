@@ -29,10 +29,13 @@ export const ChatBox = () => {
   const [mssgInput,setMssgInput]=useState("");
 
   //reciving message websocket event handler
+  const emailRef = useRef(email);
+  emailRef.current = email;
+
   const messageReceivedHandler=useCallback((message)=>{
-    if(message.from!==email)return;//message not for this chatbox
+    if(message.from!==emailRef.current)return;//message not for this chatbox
     dispatch(setMessages(message));
-  },[email,dispatch]);
+  },[dispatch]);
 
 
 //getting reviers data
