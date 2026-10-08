@@ -5,6 +5,7 @@ const MessageSchema=mongoose.Schema(
     to:{type:String,required:true},
     message:{type:String,required:true},
     read:{type:Boolean,required:true,default:false},
+    seenAt:{type:Date,default:null},
     createdAt:{
         type:Date,
         default:Date.now

@@ -1,6 +1,7 @@
 import Posts from "../models/Post.js";
 import Users from "../models/Auth.js";
 import Comments from '../models/Commment.js';
+import { createNotification } from "./Notifications.js";
 //function to add comment to a post
 export const addComment = async (req, res) => {
   try {
@@ -20,6 +21,16 @@ export const addComment = async (req, res) => {
     //Adding Comment
     const comment=new Comments({user:req.email,post:post_id,message:message})
     const savedComment=await comment.save()
+    // create notification for post owner
+    if (post.user !== req.email) {
+      await createNotification({
+        recipientId: (await Users.findOne({email:post.user}))._id,
+        senderId: (await Users.findOne({email:req.email}))._id,
+        type: "comment",
+        entityId: savedComment._id,
+        entityType: "post",
+      });
+    }
     res.status(200).send({ success: true });
   } catch (error) {
     console.log(error)

@@ -17,6 +17,7 @@ export const authenticate=async (req,res,next)=>{
     }
 
         req.email=email;
+        req.userId=user._id;
         next();
     }catch(error){
         console.log(error);

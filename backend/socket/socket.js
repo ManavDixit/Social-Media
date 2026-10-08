@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import { authenticate } from "../middleware/auth.js";
 import Users from "../models/Auth.js";
+import Messages from "../models/Messages.js";
 import { sendMessage } from "../controllers/Messages.js";
 let io;
 export const connectToWebSocket = (frontendUrl, server) => {
@@ -35,7 +36,30 @@ export const connectToWebSocket = (frontendUrl, server) => {
 
   io.on("connection", (socket) => {
     console.log("a user connected", socket.id);
-    socket.join(socket.user?.email);
+    if (socket.user?.email) {
+      socket.join(socket.user.email);
+    }
+    if (socket.user?._id) {
+      socket.join(socket.user._id.toString());
+    }
+
+    socket.on("messageSeen", async ({ messageId, chatWith }) => {
+      try {
+        const message = await Messages.findByIdAndUpdate(
+          messageId,
+          { seenAt: new Date(), read: true },
+          { new: true }
+        );
+        if (message) {
+          io.to(chatWith).emit("messageSeen", {
+            messageId,
+            seenAt: message.seenAt,
+          });
+        }
+      } catch (error) {
+        console.log("messageSeen error:", error);
+      }
+    });
   });
   
 };

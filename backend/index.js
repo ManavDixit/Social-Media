@@ -6,6 +6,7 @@ import PostRoutes from './routes/Posts.js';
 import AuthRoutes from './routes/Auth.js';
 import ProfileRoutes from './routes/Profile.js';
 import MessageRoutes from './routes/Messages.js';
+import NotificationRoutes from './routes/Notifications.js';
 import { connectToWebSocket } from "./socket/socket.js";
 import { v2 as cloudinary } from 'cloudinary';
 import http from 'http';
@@ -23,8 +24,14 @@ const app=express();
 const server=http.createServer(app);
 //connecting to websockets
 connectToWebSocket(process.env.FRONTEND_URL,server);
-//enabling cors
-app.use(cors());
+//enabling cors - explicit config for preflight handling
+const corsOptions = {
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 //using bodyparser to parse data sended in request
 app.use(express.json({extended:true,limit:'10mb'}));
 app.use(express.urlencoded({extended:true,limit:'10mb'}));
@@ -38,6 +45,7 @@ app.use('/posts',PostRoutes);
 app.use('/auth/',AuthRoutes);
 app.use('/profile/',ProfileRoutes);
 app.use('/message/',MessageRoutes);
+app.use('/notifications',NotificationRoutes);
 //listing to expess server
 server.listen(port,()=>{
     console.log(`Server running on port ${port}`);

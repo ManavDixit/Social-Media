@@ -1,5 +1,6 @@
 import Posts from "../models/Post.js";
 import Users from "../models/Auth.js";
+import { createNotification } from "./Notifications.js";
 //function to fetch all post
 export const getAllPost = async (req,res) => {
   try {
@@ -92,6 +93,16 @@ export const likePost=async (req,res)=>{
       res.status(200).send({success:true})
     }else{
       const newpost=await Posts.findByIdAndUpdate(postid,{likes:[...post.likes,email]},{new:true});//new:true to returtn updated post
+      // create notification for post owner
+      if (post.user !== email) {
+        await createNotification({
+          recipientId: (await Users.findOne({email:post.user}))._id,
+          senderId: (await Users.findOne({email}))._id,
+          type: "like",
+          entityId: post._id,
+          entityType: "post",
+        });
+      }
       res.status(200).send({success:true})
     }
     
@@ -118,4 +129,3 @@ export const getPostInfo=async (req,res)=>{
   res.status(500).send({success:false,error});
 }
 }
-

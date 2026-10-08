@@ -1,20 +1,21 @@
-import './Notifications.css';
+import './NotificationsPage.css';
 import React, { useEffect, useRef, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNotifications, markNotificationRead, markAllNotificationsRead, dismissNotification } from '../../api/Notifications';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { setAlert } from '../../Reducers/Alert';
 
-const Notifications = () => {
+const NotificationsPage = () => {
   const token = localStorage.getItem('token');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { items, unreadCount, loading, hasMore, nextCursor } = useSelector((state) => state.notifications);
   const observerRef = useRef();
   const dispatchRef = useRef(dispatch);
   dispatchRef.current = dispatch;
 
-  // Only show unread notifications in sidebar dropdown
+  // Only show unread notifications on the page
   const unreadItems = useMemo(() => items.filter(n => !n.read), [items]);
 
   useEffect(() => {
@@ -22,6 +23,11 @@ const Notifications = () => {
       dispatch(fetchNotifications({ cursor: null }));
     }
   }, [token, dispatch]);
+
+  // Reset on route change (e.g., coming back from message chat)
+  useEffect(() => {
+    dispatch(fetchNotifications({ cursor: null }));
+  }, [location.pathname, dispatch]);
 
   useEffect(() => {
     if (!hasMore) return;
@@ -79,69 +85,58 @@ const Notifications = () => {
   const getAvatar = (notification) => {
     const sender = notification.sender || {};
     if (sender.pfp || sender.picture) {
-      return <img src={sender.pfp || sender.picture} alt={sender.name} style={{ width: '2.5rem', height: '2.5rem', borderRadius: '50%', objectFit: 'cover' }} />;
+      return <img src={sender.pfp || sender.picture} alt={sender.name} style={{ width: '3rem', height: '3rem', borderRadius: '50%', objectFit: 'cover' }} />;
     }
     return <div className="avatar-letter">{sender.name ? sender.name.charAt(0).toUpperCase() : '?'}</div>;
   };
 
   return (
-    <div id='Notifications'>
-      <div id="notificationBox">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 1.5rem .75rem' }}>
-          <h2>Notifications</h2>
-          {unreadCount > 0 && (
-            <button onClick={handleMarkAllRead} style={{ fontSize: '0.8rem', padding: '0.25rem 0.75rem', background: 'var(--md-primary)', color: 'var(--md-on-primary)', border: 'none', borderRadius: '999px', cursor: 'pointer' }}>
-              Mark all read
-            </button>
-          )}
-        </div>
-        <div id="notificationList" style={{ maxHeight: '75dvh', overflowY: 'auto', paddingBottom: '.5rem' }}>
-          {unreadItems.length === 0 ? (
-            <p style={{ padding: '2rem', textAlign: 'center', color: 'var(--md-on-surface-variant)' }}>No unread notifications</p>
-          ) : (
-            unreadItems.map((notification) => (
-              <div
-                key={notification._id}
-                className="notification-item unread"
-                onClick={(e) => handleNotificationClick(notification, e)}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
-                  {getAvatar(notification)}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ margin: 0, fontSize: '0.92rem', color: 'var(--md-on-surface)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      <strong>{notification.sender?.name || 'Someone'}</strong>{' '}
-                      {getNotificationText(notification)}
-                    </p>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--md-on-surface-variant)' }}>
-                      {formatTime(notification.createdAt)}
-                    </span>
-                  </div>
-                  <span className="unread-dot" />
-                  <button 
-                    className="notification-close" 
-                    onClick={(e) => handleDismissNotification(notification._id, e)}
-                    aria-label="Mark as read"
-                    title="Mark as read"
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      color: 'var(--md-on-surface-variant)',
-                      cursor: 'pointer',
-                      padding: '0.25rem',
-                      fontSize: '1rem',
-                      lineHeight: 1,
-                      opacity: 0.6,
-                      transition: 'opacity 0.15s',
-                    }}
-                  >
-                    ×
-                  </button>
+    <div id='NotificationsPage'>
+      <div className="page-header">
+        <h1>Notifications</h1>
+        {unreadCount > 0 && (
+          <button onClick={handleMarkAllRead} className="mark-all-btn">
+            Mark all read
+          </button>
+        )}
+      </div>
+      <div id="notificationList" className="notification-list">
+        {unreadItems.length === 0 ? (
+          <div className="empty-state">
+            <p>No unread notifications</p>
+          </div>
+        ) : (
+          unreadItems.map((notification) => (
+            <div
+              key={notification._id}
+              className="notification-item unread"
+              onClick={(e) => handleNotificationClick(notification, e)}
+            >
+              <div className="notification-content">
+                {getAvatar(notification)}
+                <div className="notification-text">
+                  <p>
+                    <strong>{notification.sender?.name || 'Someone'}</strong>{' '}
+                    {getNotificationText(notification)}
+                  </p>
+                  <span className="notification-time">
+                    {formatTime(notification.createdAt)}
+                  </span>
                 </div>
               </div>
-            ))
-          )}
-          <div id="loadMoreSentinel" style={{ height: '1rem' }} />
-        </div>
+              <span className="unread-dot" />
+              <button 
+                className="notification-close" 
+                onClick={(e) => handleDismissNotification(notification._id, e)}
+                aria-label="Mark as read"
+                title="Mark as read"
+              >
+                ×
+              </button>
+            </div>
+          ))
+        )}
+        <div id="loadMoreSentinel" style={{ height: '1rem' }} />
       </div>
     </div>
   )
@@ -178,4 +173,4 @@ function formatTime(dateString) {
   return date.toLocaleDateString();
 }
 
-export default Notifications
+export default NotificationsPage

@@ -1,11 +1,12 @@
 // @ts-check
 // @ts-nocheck
 import { useParams } from "react-router-dom";
-import { useCallback, useEffect, useState,useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getProfile } from "../../api/Profile";
 import { getMessages ,sendMessage} from "../../api/Messages";
+import { markNotificationRead } from "../../api/Notifications";
 import spinner from "../../assets/spinner.svg";
 import { socket } from "../../socket";
 import { setMessages ,clearMessages,setActiveEmail} from "../../Reducers/Messages";
@@ -22,7 +23,7 @@ export const ChatBox = () => {
   const [page, setPage] = useState(1);
   let dispatch = useDispatch();
   //messages and profile info of logged in user
-  const { messages, profile} = useSelector((state) => state);
+  const { messages, profile, notifications } = useSelector((state) => state);
 
   //state for message box(input)
   const [mssgInput,setMssgInput]=useState("");
@@ -32,7 +33,6 @@ export const ChatBox = () => {
     if(message.from!==email)return;//message not for this chatbox
     dispatch(setMessages(message));
   },[email,dispatch]);
-
 
 
 //getting reviers data
@@ -123,9 +123,9 @@ const containerRef=useRef();
     setMssgInput("");
   }
 
-  //pagination
+  //pagination - observe the first element (oldest message) to load more when scrolled to top
   const observer=useRef();
-  const firstElement=useCallback((element)=>{//will be runned when elemnt eith this func in ref is rendered
+  const firstElement=useCallback((element)=>{//will be runned when element with this func in ref is rendered
     if(observer.current) observer.current.disconnect();
     observer.current=new IntersectionObserver((entries)=>{
       if(entries[0].isIntersecting && !isLoading && messages.isNextAvailable){
@@ -147,14 +147,66 @@ const containerRef=useRef();
 
 //importing typw just to get vscode sugggestions, remove later
   /**
- * @param {import('react').UIEvent<HTMLDivElement>} event
- */
+   * @param {import('react').UIEvent<HTMLDivElement>} event
+   */
   const handleScroll=(event)=>{
     const threshold=200;//px
     const element=event.currentTarget;
     //bottom length below screen <threshold (scroll height=toatral height , visible +to overflow+bottom overfloe ; client heightis veible height, scrollTop is top overflow)
     isAtBottomRef.current=element.scrollHeight-element.clientHeight-element.scrollTop<threshold;
   }
+
+  // messageSeen: observe received messages entering viewport
+  const messageRefs = useRef({});
+  const seenObserver = useRef();
+  useEffect(() => {
+    seenObserver.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const messageId = entry.target.dataset.messageId;
+            if (messageId) {
+              socket.emit("messageSeen", { messageId, chatWith: profile.email });
+              // stop observing this message
+              seenObserver.current.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    return () => seenObserver.current?.disconnect();
+  }, [profile.email]);
+
+  // Combined ref callback for received messages - handles both pagination (first element) and messageSeen
+  const receivedMessageRef = useCallback((el) => {
+    if (!el) return;
+    const messageId = el.dataset.messageId;
+    if (messageId) {
+      messageRefs.current[messageId] = el;
+      seenObserver.current?.observe(el);
+    }
+  }, []);
+
+  // observe received messages after render
+  useEffect(() => {
+    Object.values(messageRefs.current).forEach((el) => {
+      if (el) seenObserver.current?.observe(el);
+    });
+  }, [messages.messages]);
+
+  // Mark message notifications from this sender as read when chat opens
+  useEffect(() => {
+    if (!notifications?.items) return;
+    const unreadFromSender = notifications.items.filter(n => 
+      n.type === 'message' && 
+      !n.read && 
+      n.sender?.email === email
+    );
+    unreadFromSender.forEach(n => {
+      dispatch(markNotificationRead({ notificationId: n._id }));
+    });
+  }, [email, notifications?.items, dispatch]);
 
   return (
    
@@ -170,43 +222,32 @@ const containerRef=useRef();
               <img className="spinner" src={spinner} alt="Loading...." />
             )}
             {messages.messages.map((message,index) => {
-              if (message.from ==email) {
-                if(index==0){
-                  
-                  return (
-                    
-                    <div className="recivedMessage" ref={firstElement} key={message._id}>
-                      <h4>{userData.name}</h4>
-                      <p>{message.message}</p>
-                    </div>
-                  );
-                }else{
-                  return (
-                    
-                    <div className="recivedMessage"  key={message._id}>
-                      <h4>{userData.name}</h4>
-                      <p>{message.message}</p>
-                    </div>
-                  );
-                }
+              const isReceived = message.from === email;
+              // Attach pagination observer to the FIRST message in the list (oldest)
+              const shouldAttachPagination = index === 0;
+              if (isReceived) {
+                return (
+                  <div 
+                    className="recivedMessage" 
+                    ref={shouldAttachPagination ? (el) => { firstElement(el); receivedMessageRef(el); } : receivedMessageRef}
+                    key={message._id}
+                    data-message-id={message._id}
+                  >
+                    <h4>{userData.name}</h4>
+                    <p>{message.message}</p>
+                  </div>
+                );
               } else {
-                if(index==0){
-                  return (
-                    <div className="sentMessage" ref={firstElement} key={message._id}>
-                      <h4>{profile.name} (YOU)</h4>
-                      <p>{message.message}</p>
-                    </div>
-                  );
-                }
-                else{
-
-                  return (
-                    <div className="sentMessage" key={message._id}>
-                      <h4>{profile.name} (YOU)</h4>
-                      <p>{message.message}</p>
-                    </div>
-                  );
-                }
+                return (
+                  <div 
+                    className="sentMessage" 
+                    ref={shouldAttachPagination ? firstElement : null}
+                    key={message._id}
+                  >
+                    <h4>{profile.name} (YOU)</h4>
+                    <p>{message.message}</p>
+                  </div>
+                );
               }
             })}
             <p ref={bottomRef}></p>
@@ -230,7 +271,7 @@ const containerRef=useRef();
               e.preventDefault();
               if(mssgInput.trim()!=='') sendMessageButton();
             }
-        }}/>
+        }}/> 
         <button onClick={sendMessageButton}>SEND</button>
       </div>
     </div>

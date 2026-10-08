@@ -4,6 +4,7 @@ import alertReducer from './Reducers/Alert';
 import postInfoReducer from './Reducers/postInfo';
 import profileReducer from './Reducers/Profile';
 import messagesReducer from './Reducers/Messages';
+import notificationsReducer from './Reducers/Notifications';
 export const store=configureStore({
     reducer:{
         posts:postReducer,
@@ -11,5 +12,6 @@ export const store=configureStore({
         postInfo:postInfoReducer,
         profile:profileReducer,
         messages:messagesReducer,
+        notifications:notificationsReducer,
     }
 });

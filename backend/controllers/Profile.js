@@ -1,5 +1,6 @@
 import Users from "../models/Auth.js";
 import Posts from "../models/Post.js";
+import { createNotification } from "./Notifications.js";
 export const getProfileData=async (req,res)=>{
     try {
         const email=req.email;//set by autheneticte middleware
@@ -16,7 +17,7 @@ export const getProfileData=async (req,res)=>{
             ...post.toObject(),likes:post?.likes?.length,hasLiked:post?.likes?.includes(email),user:(await Users.findOne({email:post.user}))?.name,email:post.user
           })));}
 
-      
+       
         const isMyProfile=user_email?user_email===email:true;
         if(user_email){
           const authenticatedUser=await Users.findOne({email});
@@ -60,6 +61,14 @@ export const followUser=async(req,res)=>{
       await Users.findOneAndUpdate({email:user_email},{followers:[...user.followers,email]},{new:true});
     //adding user to following of user that wants to follow
       await Users.findOneAndUpdate({email:email},{following:[...user_that_wants_to_follow.following,user_email]},{new:true});
+      // create notification for followed user
+      await createNotification({
+        recipientId: user._id,
+        senderId: user_that_wants_to_follow._id,
+        type: "follow",
+        entityId: user_that_wants_to_follow._id,
+        entityType: "user",
+      });
       res.status(200).send({success:true,type:'followed'})
     }
     

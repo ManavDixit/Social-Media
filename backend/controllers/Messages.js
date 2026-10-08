@@ -8,6 +8,8 @@ import UserModel from "../models/Auth.js";
 /** @type {import("mongoose").Model<any>} */
 const Users = /** @type {import("mongoose").Model<any>} */ (UserModel);
 
+import { createNotification } from "./Notifications.js";
+
 
 export const getContacts=async (req,res) => {
     try {
@@ -61,6 +63,14 @@ const io=getIo();
         io.to(to).emit("messageReceived",{
             ...savedNewMessage.toObject(),
         })
+        // create notification for recipient
+        await createNotification({
+          recipientId: reciver._id,
+          senderId: (await Users.findOne({email:from}))._id,
+          type: "message",
+          entityId: savedNewMessage._id,
+          entityType: "message",
+        });
         res.status(200).send({success:true,message:savedNewMessage});
     } catch (error) {
         res.status(400).send({success:false,error:error.message});
