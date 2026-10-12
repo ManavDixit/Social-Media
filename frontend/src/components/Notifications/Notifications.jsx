@@ -52,8 +52,8 @@ const Notifications = () => {
     }
     if (notification.type === 'message' && notification.sender?.email) {
       navigate(`/messages/${notification.sender.email}`);
-    } else if (notification.entityType === 'post' && notification.entityId) {
-      navigate(`/postInfo?postid=${notification.entityId}`);
+    } else if ((notification.type === 'like' || notification.type === 'comment' || notification.type === 'like_comment') && notification.entityId) {
+      navigate(`/postInfo?postid=${notification.entityId.toString()}`);
     } else if (notification.entityType === 'user' && notification.sender?.email) {
       navigate(`/profile?email=${notification.sender.email}`);
     }
@@ -155,6 +155,8 @@ function getNotificationText(notification) {
       return 'liked your post';
     case 'comment':
       return 'commented on your post';
+    case 'like_comment':
+      return 'liked your comment';
     case 'follow':
       return 'started following you';
     case 'share':

@@ -27,7 +27,7 @@ export const addComment = async (req, res) => {
         recipientId: (await Users.findOne({email:post.user}))._id,
         senderId: (await Users.findOne({email:req.email}))._id,
         type: "comment",
-        entityId: savedComment._id,
+        entityId: post._id,
         entityType: "post",
       });
     }
@@ -87,6 +87,16 @@ export const likeComment=async (req,res)=>{
       res.status(200).send({success:true})
     }else{
       const newcomment=await Comments.findByIdAndUpdate(commentid,{likes:[...comment.likes,email]},{new:true});//new:true to returtn updated post
+      // create notification for comment owner
+      if (comment.user !== email) {
+        await createNotification({
+          recipientId: (await Users.findOne({email:comment.user}))._id,
+          senderId: (await Users.findOne({email}))._id,
+          type: "like_comment",
+          entityId: post._id,
+          entityType: "post",
+        });
+      }
       res.status(200).send({success:true})
     }
     
